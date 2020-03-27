@@ -16,7 +16,7 @@ Dépôt pour le projet de NA17 - Groupe 3. P20
 # Livrables
 ## NDC
 1. Rendu au format markdown.
-2. [Note de clarification](NDC.md).
+2. [Note de clarification](NDC.md) ou [version web](NDC.html)
 ## Modèle UML
 1. Rendu au format plantuml.
 2. [Modèle UML](modele.uml).
