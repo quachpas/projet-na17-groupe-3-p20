@@ -1,4 +1,6 @@
 # Note de clarification du reseau Resilience
+## Avant-propos
+Cette NDC ne réexplique pas tout le sujet. Se référer au [Readme](README.md) pour plus d'informations. 
 ## Analyse des besoins et clarification
 1. On veut établir un **réseau** d'entraide entre des personnes et des communautés. 
 2. Toute personne pourra sans restriction créer des communautés. 
