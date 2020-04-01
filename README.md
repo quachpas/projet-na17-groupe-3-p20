@@ -1,13 +1,18 @@
+- [Membres du groupe](#membres-du-groupe)
 - [Projet NA17 : Résilience (Groupe 3 P20)](#projet-na17--r%c3%a9silience-groupe-3-p20)
   - [Description](#description)
     - [Fonctions spécialisées](#fonctions-sp%c3%a9cialis%c3%a9es)
-  - [Membres du groupe](#membres-du-groupe)
 - [Livrables](#livrables)
   - [NDC](#ndc)
   - [Modèle UML (MCD)](#mod%c3%a8le-uml-mcd)
   - [MLD relationnel](#mld-relationnel)
   - [BDD : tables et vues, données de test, questions attendues (vues)](#bdd--tables-et-vues-donn%c3%a9es-de-test-questions-attendues-vues)
   - [Application Python](#application-python)
+  
+# Membres du groupe
+- Anaël Lacour
+- Ombeline Lheureux 
+- Pascal Quach
 # Projet NA17 : Résilience (Groupe 3 P20)
 ## Description 
 Le projet Résilience a pour objectif de mettre en réseau des personnes et des communautés dans une logique d'entre-aide.
@@ -28,16 +33,13 @@ Les personnes peuvent se localiser avec des coordonnées géographiques sous un 
 ### Fonctions spécialisées
 On proposera au moins les trois vues suivantes :
 
-1. Vue communauté : permet pour chaque personne d'avoir la liste des communautés auxquelles il déclare appartenir avec un booléen qui détermine si la personne est exclue ou non.
+1. Vue communauté : 
 
 2. Vue message : permet de visualiser chaque message en ajoutant l'identifiant du message d'origine lorsque le message s'inscrit dans un fil historique. Par exemple si C → B → A alors on veut voir la référence à A lorsqu'on affiche C.
 
 3. Vue proches : permet de visualiser les communautés et personnes proches de chaque personne et communauté (à une distance inférieure à 1km)
 
-## Membres du groupe
-- Anaël Lacour
-- Ombeline Lheureux 
-- Pascal Quach
+
 
 # Livrables
 ## NDC

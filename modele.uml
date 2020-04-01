@@ -1,8 +1,67 @@
 @startuml
+' - PRIVATE
+' # PROTECTED
+' ~ PACKAGE PRIVATE
+' + PUBLIC
 
+' PARAMETERS
 skinparam monochrome true
 skinparam linetype polyline
 skinparam linetype ortho
 hide circle
+' CUSTOM COMMANDS
+!define datatype(x) class "x" <<datatype>>
+!define abstract(x) class "x" <<abstract>>
+!define association(x) class "x" 
+' CLASSES CONCRETES
+class Communauté {
+    nom : string {key}
+    date_creation : date
 
+}
+class Personne {
+    username : string {key}
+    nom : string
+    prénom : string
+    âge : integer {âge > 0}
+}
+class Compte {
+    public_key : string {key}
+}
+class Savoir-faire {
+    nom : string {key}
+}
+class Transaction {
+    date : date
+}
+class Lien {
+    émetteur : {Personne, Communauté}
+    récepteur : {Personne, Communauté}
+}
+class Message {
+    expéditeur : {Personne, Communauté}
+    destinataire : {Personne, Communauté}
+}
+' CLASSES HERITEES
+
+' CLASSES ABSTRAITE
+abstract(Service) {
+    nom : string
+}
+' CLASSES D'ASSOCIATIONS
+association(Déclaration d'appartenance) {
+    validité : bool
+}
+association(Possède) {
+    degré : {1,2,3,4,5}
+}
+' TYPE DE DONNEES
+datatype(Coordonnées géographiques)  {
+
+}
+
+' ASSOCIATIONS SIMPLES BIDIRECTIONNELLES
+' ASSOCIATIONS SIMPLES UNIDIRECTIONNELLE
+' AGREGATIONS
+' CLASSES D'ASSOCIATIONS 
 @enduml
