@@ -15,15 +15,18 @@ hide circle
 !define association(x) class "x" 
 ' CLASSES CONCRETES
 class Communauté {
-    nom : string {key}
+    nom : string {not null}
     date_creation : date
-
 }
 class Personne {
-    username : string {key}
-    nom : string
-    prénom : string
+    username : string {unique, not null}
+    nom : string {not null}
+    prénom : string {not null}
     âge : integer {âge > 0}
+    mot_de_passe : string {not null}
+    email : string 
+    localisation : Coordonnées géographiques
+    lien_openstreetmap(Coordonnées géographiques) : URL
 }
 class Compte {
     public_key : string {key}
@@ -31,23 +34,30 @@ class Compte {
 class Savoir-faire {
     nom : string {key}
 }
-class Transaction {
-    date : date
-}
 class Lien {
-    émetteur : {Personne, Communauté}
-    récepteur : {Personne, Communauté}
+    description : string {not null}
+}
+class Conversation {
+
 }
 class Message {
-    expéditeur : {Personne, Communauté}
-    destinataire : {Personne, Communauté}
+    contenu : string {not null}
 }
-' CLASSES HERITEES
-
 ' CLASSES ABSTRAITE
 abstract(Service) {
-    nom : string
+    nom : string {not null}
+    type : {offre, demande}
+    description : string
+    date_de_publication : date
 }
+' CLASSES HERITEES
+class "Service commercialisé" {
+    montant : float
+}
+class "Service avec contre-partie" {
+    desc_contre_partie : string
+}
+class "Service sans contre-partie" 
 ' CLASSES D'ASSOCIATIONS
 association(Déclaration d'appartenance) {
     validité : bool
@@ -57,7 +67,9 @@ association(Possède) {
 }
 ' TYPE DE DONNEES
 datatype(Coordonnées géographiques)  {
-
+    longitude : float {not null}
+    latitude : float {not null}
+    zoom : int {zoom >= 0, zoom <= 18}
 }
 
 ' ASSOCIATIONS SIMPLES BIDIRECTIONNELLES

@@ -63,12 +63,12 @@ On clarifiera successivement ces différentes parties de façon explicite, en d�
 1. Selon les règlementations légales françaises, s'il devenait pertinent de les appliquer pour certaines de nos données, il faudra archiver ces données et les conserver pour une durée légale fixée. 
 2. Les données non relatives à des données personnelles, qui sont supprimmées conceptuellement par les actions de l'utilisateur seront supprimés définitivement et immédiatement de la base de données. Aucun archivage ne sera effectué.
 ### Respect du RGPD
-2. La durée de validité du consentement (au sens du RGPD) est porté à 13 mois maximum. Au-delà de ce délai, l'application devra de nouveau recueillir le consentement.
-3. Par conséquent, la durée de vie des cookies et autres traceurs doit être limitée à 13 mois. 
-4. Le droit à l'oubli spécifie qu'au bout de 36 mois d'inactivité, les données personnelles d'un utilisateur doivent être supprimés de notre base de données. La suppression est définitive et ne correspond pas à un archivage des données. 
-5. Pour les utilisateurs âgés de moins de 15 ans, le consentement conjoint du mineur et du/des titulaires de l'autorité parentale devra être recueilli.
-6. Pour les mineurs âgés de 15 ans et plus, comme le précise l'article 7-1 de la loi relative à la protection des données, le mineur peut consentir seul au traitement des données à caractère personnel.
-7. Les données personnelles d'un utilisateur doivent être à tout moment, rectifiable, effaçables, et restituables. Le délai pour effectuer ces actions suite à la demande est un mois. 
+1. La durée de validité du consentement (au sens du RGPD) est porté à 13 mois maximum. Au-delà de ce délai, l'application devra de nouveau recueillir le consentement.
+2. Par conséquent, la durée de vie des cookies et autres traceurs doit être limitée à 13 mois. 
+3. Le droit à l'oubli spécifie qu'au bout de 36 mois d'inactivité, les données personnelles d'un utilisateur doivent être supprimés de notre base de données. La suppression est définitive et ne correspond pas à un archivage des données. 
+4. Pour les utilisateurs âgés de moins de 15 ans, le consentement conjoint du mineur et du/des titulaires de l'autorité parentale devra être recueilli.
+5. Pour les mineurs âgés de 15 ans et plus, comme le précise l'article 7-1 de la loi relative à la protection des données, le mineur peut consentir seul au traitement des données à caractère personnel.
+6. Les données personnelles d'un utilisateur doivent être à tout moment, rectifiable, effaçables, et restituables. Le délai pour effectuer ces actions suite à la demande est un mois. 
 ## Communautés et personnes
 Les personnes et les communautés possèdent éventuellement des comptes en Ğ1. On devra stocker leurs clés publiques.
 ### Personne (Utilisateur)
@@ -80,7 +80,8 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 4. S'il souhaite être capable de réinitialiser son mot de passe, l'utilisateur devra obligatoirement renseigner un email.
 5. Les personnes peuvent se localiser avec des coordonnées géographiques définies par la longitude et la latitude.
 #### Méthodes
-1. Concernant la localisation, on pourra produire un lien sur openstreetmap.org. Exemple : https://www.openstreetmap.org/#map=17/49.41957/2.82243 (où 17 est ici le niveau de zoom).
+1. Concernant la localisation, on pourra produire un lien sur openstreetmap.org. Exemple : https://www.openstreetmap.org/#map=17/49.41957/2.82243 (où 17 est ici le niveau de zoom). 
+> Le niveau de zoom est compris entre 0 et 18  : https://wiki.openstreetmap.org/wiki/FR:Zoom_levels.
 #### Droits et restrictions
 1. Toute personne pourra créer sans restrictions des communautés.
 2. Tout personne peut déclarer sans restrictions (unidirectionnellement)
@@ -105,7 +106,7 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 ### Déclaration d'appartenance à une communauté
 #### Droits et restrictions
 1. Les déclarations d'appartenance entre une personne et une communauté sont uniques. 
-1. Les membres d'une communauté peuvent s'opposer à la déclaration d'appartenance d'une personne autre qu'eux-même. Si plus de la moitié des membres s'oppose à sa présence, sa déclaration d'appartenance n'est plus valide. Négativement, si une personne ne fait plus partie d'une communauté, son vote d'opposition n'est plus valide (il sera supprimé).
+2. Les membres d'une communauté peuvent s'opposer à la déclaration d'appartenance d'une personne autre qu'eux-même. Si plus de la moitié des membres s'oppose à sa présence, sa déclaration d'appartenance n'est plus valide. Négativement, si une personne ne fait plus partie d'une communauté, son vote d'opposition n'est plus valide (il sera supprimé).
 3. En aucun cas, une personne ne pourra décider du vote d'opposition d'une autre personne.
 #### Remarques additionnelles
 1. La déclaration d'appartenance d'un membre à une communauté est actualisée à chaque fois que l'effectif de la communauté varie, c'est-à-dire quand un membre quitte (de gré ou de force) une communauté ou qu'un nouveau membre rejoint la communauté.
@@ -117,7 +118,7 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 5. L'ordre d'invalidation est significatif dans l'application de l'effet domino négatif. Dans un cas plus complexe, où les oppositions "se croisent", c'est-à-dire que les membres s'opposent mutuellement, on choisira toujours d'appliquer la mise à jour de l'appartenance dans l'ordre croissant d'ancienneté. Les membres les plus récents seront donc exclus en premier. 
 6. Par exemple, on peut se trouver dans le cas où deux membres s'opposent mutuellement. On y arrive à cause de l'effet domino négatif. Quoi qu'il en soit, le critère de sélection sera donc l'ancienneté, et le membre le plus récent sera exclu de la communauté.
 > Par définition, cet effet domino a une fin quand il ne reste plus qu'un membre. Il ne peut effectivement pas s'opposer lui-même.
-1. Par défaut, un nouveau membre d'une communauté ne s'oppose pas à une déclaration d'appartenance valide. Par contre, il s'oppose automatiquement à une déclaration d'appartenance invalide.
+7. Par défaut, un nouveau membre d'une communauté ne s'oppose pas à une déclaration d'appartenance valide. Par contre, il s'oppose automatiquement à une déclaration d'appartenance invalide.
 > On souhaite se protéger d'un effet domino positif. C'est-à-dire que les déclarations d'appartenances invalides ne redeviennent pas valides en chaîne suite à l'arrivée d'un nouveau membre.
 ### Déclaration de lien
 #### Attributs
@@ -125,24 +126,24 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 2. Les liens comportent obligatoirement une description.
 #### Droits et restrictions
 1. Les liens entre communautés ou entre personnes sont uniques. Il ne peut exister qu'un lien entre deux entités distinctes de même type.
-3. Les déclarations de liens peuvent uniquement se réaliser de personne à personne ou de communauté à communauté distinctes. La gestion des liens d'une communauté est laissé à la discrétion de ses membres.
-4. L'entité réceptrice de la déclaration de lien peut décider de l'accepter ou non.
+2. Les déclarations de liens peuvent uniquement se réaliser de personne à personne ou de communauté à communauté distinctes. La gestion des liens d'une communauté est laissé à la discrétion de ses membres.
+3. L'entité réceptrice de la déclaration de lien peut décider de l'accepter ou non.
 > Malgré qu'on souhaite que le lien soit unidirectionnel, on accordera au récepteur de la déclaration de lien un droit de regard dans le but de minimiser les abus. On ne souhaite pas qu'un utilisateur déclare des liens qui n'existent pas. 
 4. Si une déclaration de lien est déclarée invalide, l'émetteur de la déclaration de lien ne pourra en aucun cas en émettre une autre.
 > Cette restriction permet de protéger de l'abus des déclarations de lien. 
-4. Si une déclaration de lien est invalide, l'émetteur de la déclaration de lien peut modifier la description.
+5. Si une déclaration de lien est invalide, l'émetteur de la déclaration de lien peut modifier la description.
 > On laissera cependant la possibilité à l'émetteur de modifier sa déclaration de lien, si elle est utilisée avec de bonnes intentions. 
-5. Si une déclaration de lien est invalide, le récepteur de la déclaration peut à tout moment choisir de modifier son statut et de la valider.
+6. Si une déclaration de lien est invalide, le récepteur de la déclaration peut à tout moment choisir de modifier son statut et de la valider.
 > Dans la continuité du droit n°4, si la description est modifiée, le récepteur doit être capable d'accepter la déclaration. 
-6. Si une déclaration de lien est valide, l'émetteur de la déclaration peut à tout moment choisir de modifier son statut et de l'invalider. 
-7. Si une déclaration de lien est valide, le récepteur ne peut pas modifier son statut.
+7. Si une déclaration de lien est valide, l'émetteur de la déclaration peut à tout moment choisir de modifier son statut et de l'invalider. 
+8. Si une déclaration de lien est valide, le récepteur ne peut pas modifier son statut.
 > Le lien est unidirectionnel. Un lien de A vers B déclare publiquement que A est lié à B suivant la description. 
-7. Si une déclaration de lien est valide, la description du lien est figée.
+9. Si une déclaration de lien est valide, la description du lien est figée.
 > Si l'émetteur souhaite modifier le lien, il doit d'abord l'invalider. 
 #### Remarques additionnelles
-3. Par défaut, aucun lien n'existe entre les entités de Résilience.
-4. Si la déclaration de lien est validée, elle sera visible publiquement sur le profil de l'émetteur. Elle n'est pas visible sur le public du récepteur.
-5. Si la déclaration de lien est invalidée, on garde le status quo. Aucun lien n'est affiché.
+1. Par défaut, aucun lien n'existe entre les entités de Résilience.
+2. Si la déclaration de lien est validée, elle sera visible publiquement sur le profil de l'émetteur. Elle n'est pas visible sur le public du récepteur.
+3. Si la déclaration de lien est invalidée, on garde le status quo. Aucun lien n'est affiché.
 ### Vue communauté
 Elle permet à chaque personne d'avoir la liste des communautés auxquelles il déclare appartenir avec un booléen qui détermine si la personne est exclue ou non.
 ## Services
@@ -150,18 +151,25 @@ Elle permet à chaque personne d'avoir la liste des communautés auxquelles il d
 Pour faciliter l'échange de services et promouvoir l'interaction sociale, on considèrera qu'un service peut être proposé, ou demandé. Les utilisateurs ne sont pas dépendants de l'offre, mais explicitent également la demande. De même, la palette d'offres peut inspirer les utilisateurs quant aux compétences qu'ils estiment posséder.
 Le service est une classe abstraite. 
 ### Attributs
-1. Le service possèdera un nom, une description, une date de publication et éventuellement un montant correspondant au paiement en G1, ou une contre-partie définie plus bas.
-2. Un service sera identifié par une clé artificielle, comme il est très difficile de trouver une clé naturelle. On aurait pu proposer d'identifier le service avec le nom, l'auteur, et la date de publication.
+1. Le service possèdera un nom, une description, une date de publication, ou une contre-partie définie plus bas.
+2. On enregistrera l'auteur du service.
+3. Un service sera identifié par une clé artificielle, comme il est très difficile de trouver une clé naturelle. On aurait pu proposer d'identifier le service avec le nom, l'auteur, et la date de publication.
 ### Droits et restrictions
-3. Les services peuvent être publiés par n'importe quelle personne. 
-4. Les services sont publiés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1. 
+1. Les services peuvent être publiés par n'importe quelle personne. 
+2. Les services ne peuvent être modifiés que par leur auteur. 
+3. Les services sont publiés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1. 
 ### Services commercialisé
+1. Un montant sera obligatoirement précisé.
+2. Une personne ne pourra accéder aux services avec contre-partie commerciale si elle n'a pas de compte en Ğ1.
 ### Service avec contre-partie
-1. Une personne ne pourra accéder aux services avec contre-partie commerciale si elle n'a pas de compte en Ğ1.
+1. Le service avec contre-partie peut se baser sur le troc. La contre-partie sera éventuellement décrite textuellement.
+2. La contre-partie d'un service peut-être la réalisation d'un autre service. 
 ### Service sans contre-partie
+1. Le service est proposé/demandé sans rien en échange, il est entièrement bénévole.
 ### Remarques additionnelles
 1. Au niveau de l'implémentation, un service avec contre-partie peut être lié avec un service sans contre-partie, un service commercialisé, ou un autre service avec contre-partie dans la mesure où tous ces services sont identifiés. Un service identifié est un service qui a été enregistré dans notre BDD. Un service (contre partie) non identifié(e) s'exprimerait sur le mode descriptif, par exemple pourrait y figurer plusieurs propositions. L'utilisateur serait alors soumis à un choix : par exemple, jardinage ou cours de danse. On le considèrera comme un champ de texte personalisé. 
 2. Concrètement, un utilisateur crée un service A, dit avec contre-partie. La contre-partie associée est alors soit identifiée, soit non identifiée. On dit d'une contre-partie qu'elle est identifiée si l'utilisateur renseigne dans la base de données le service qu'il propose en échange. La contre-partie est non identifiée quand l'utilisateur décrit le(s) type(s) de service au(x)quel(s) il aimerait répondre (généralement correlé(s) aux savoir-faire qu'il possède).
+3. Il est tout à fait possible que la contre-partie d'un service soit décrite comme une rémunération monétaire. Les utilisateurs sont libres de l'utilisation de Résilience. Même si ce type de service n'est pas censé être utilisé avec ces intentions en tête.
 ## Savoir-faire
 ### Attributs
 1. Un savoir-faire est identifié par son nom. Deux savoir-faire ne peuvent pas avoir le même nom.
@@ -200,10 +208,12 @@ Chaque conversation correspond à un ensemble de messages entre deux entités. C
 #### Attributs
 1. Un message est muni d'un contenu, et d'une date de création.
 2. Le message provient d'un expéditeur (utilisateur, ou communauté), 
-3. Un message sera identifié par une clé artificielle dans un soucis de performance et d'extensibilité.
+3. On pourra faire référence à un autre message au sein d'une conversation. 
+4. Un message sera identifié par une clé artificielle dans un soucis de performance et d'extensibilité.
 > On aurait pu proposer d'identifier un message avec une clé naturelle telle que l'id de l'utilisateur, l'id de la conversation, et un timestamp du message. 
 #### Droits et restrictions
 1. Un message peut être supprimé et/ou modifié par son expéditeur.
+2. Un message ne peut faire référence qu'à un seul autre message. Par contre, un message peut être référencé sans limites.
 ### Vue message
 On proposera la vue message qui permet de visualiser chaque message en ajoutant l'identifiant du message d'origine lorsque le message s'inscrit dans un fil historique. Par exemple si C → B → A alors on veut voir la référence à A lorsqu'on affiche C.
 ### Remarques additionnelles
