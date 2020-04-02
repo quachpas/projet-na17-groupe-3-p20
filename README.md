@@ -8,6 +8,7 @@
   - [MLD relationnel](#mld-relationnel)
   - [BDD : tables et vues, données de test, questions attendues (vues)](#bdd--tables-et-vues-donn%c3%a9es-de-test-questions-attendues-vues)
   - [Application Python](#application-python)
+- [Remarques sur la v1 du projet](#remarques-sur-la-v1-du-projet)
   
 # Membres du groupe
 - Anaël Lacour
@@ -39,8 +40,6 @@ On proposera au moins les trois vues suivantes :
 
 3. Vue proches : permet de visualiser les communautés et personnes proches de chaque personne et communauté (à une distance inférieure à 1km)
 
-
-
 # Livrables
 ## NDC
 1. Rendu au format markdown.
@@ -57,3 +56,7 @@ On proposera au moins les trois vues suivantes :
 ## Application Python
 1. Rendu du code source d'une application implémentant le projet.
 2. Plus de détails à venir.
+
+# Remarques sur la v1 du projet 
+1. Le délai étant de conception et implémentation étant relativement court, on s'efforcera de mettre place les fonctionnalités essentielles. C'est-à-dire nécessaires au fonctionnement de l'application, qui doit répondre aux besoins établis. 
+2.  Cependant, certains concepts et domaines de priorité secondaires seront abordés si seulement le temps est suffisant. Ces fonctionnalités correspondent notamment à la gestion du cycle de vie des données, au respect du RGPD, les conditions générales d'utilisation (CGU), etc. La facilité d'implémentation ultérieure de ces fonctionnalités justifient le délai dans leur traitement.

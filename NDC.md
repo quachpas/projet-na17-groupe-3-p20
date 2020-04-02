@@ -1,6 +1,8 @@
 - [Note de clarification du reseau Resilience](#note-de-clarification-du-reseau-resilience)
   - [Feedback](#feedback)
   - [Avant-propos](#avant-propos)
+    - [Cycle de vie des données](#cycle-de-vie-des-donn%c3%a9es)
+    - [Respect du RGPD](#respect-du-rgpd)
   - [Communautés et personnes](#communaut%c3%a9s-et-personnes)
     - [Personne (Utilisateur)](#personne-utilisateur)
       - [Attributs](#attributs)
@@ -22,21 +24,27 @@
   - [Services](#services)
     - [Description](#description)
     - [Attributs](#attributs-3)
+    - [Droits et restrictions](#droits-et-restrictions-4)
     - [Services commercialisé](#services-commercialis%c3%a9)
     - [Service avec contre-partie](#service-avec-contre-partie)
     - [Service sans contre-partie](#service-sans-contre-partie)
     - [Remarques additionnelles](#remarques-additionnelles-4)
   - [Savoir-faire](#savoir-faire)
     - [Attributs](#attributs-4)
-    - [Droits et restrictions](#droits-et-restrictions-4)
+    - [Droits et restrictions](#droits-et-restrictions-5)
     - [Remarques additionnelles](#remarques-additionnelles-5)
   - [Transactions](#transactions)
   - [Comptes](#comptes)
     - [Attributs](#attributs-5)
-    - [Droits et restrictions](#droits-et-restrictions-5)
-  - [Messagerie (Messages)](#messagerie-messages)
-    - [Attributs](#attributs-6)
     - [Droits et restrictions](#droits-et-restrictions-6)
+  - [Transactions](#transactions-1)
+  - [Système de messagerie](#syst%c3%a8me-de-messagerie)
+    - [Conversation](#conversation)
+      - [Attributs](#attributs-6)
+      - [Droits et restrictions](#droits-et-restrictions-7)
+    - [Messages](#messages)
+      - [Attributs](#attributs-7)
+      - [Droits et restrictions](#droits-et-restrictions-8)
     - [Vue message](#vue-message)
     - [Remarques additionnelles](#remarques-additionnelles-6)
 # Note de clarification du reseau Resilience
@@ -51,14 +59,26 @@ Le réseau Résilience est composé de plusieurs parties :
 - les transactions (transactions et comptes),
 - la messagerie.
 On clarifiera successivement ces différentes parties de façon explicite, en détaillant les droits et les restrictions qui seront appliquées. Nous rajouterons également des élements pour résoudre les problèmes éventuels.
+### Cycle de vie des données 
+1. Selon les règlementations légales françaises, s'il devenait pertinent de les appliquer pour certaines de nos données, il faudra archiver ces données et les conserver pour une durée légale fixée. 
+2. Les données non relatives à des données personnelles, qui sont supprimmées conceptuellement par les actions de l'utilisateur seront supprimés définitivement et immédiatement de la base de données. Aucun archivage ne sera effectué.
+### Respect du RGPD
+2. La durée de validité du consentement (au sens du RGPD) est porté à 13 mois maximum. Au-delà de ce délai, l'application devra de nouveau recueillir le consentement.
+3. Par conséquent, la durée de vie des cookies et autres traceurs doit être limitée à 13 mois. 
+4. Le droit à l'oubli spécifie qu'au bout de 36 mois d'inactivité, les données personnelles d'un utilisateur doivent être supprimés de notre base de données. La suppression est définitive et ne correspond pas à un archivage des données. 
+5. Pour les utilisateurs âgés de moins de 15 ans, le consentement conjoint du mineur et du/des titulaires de l'autorité parentale devra être recueilli.
+6. Pour les mineurs âgés de 15 ans et plus, comme le précise l'article 7-1 de la loi relative à la protection des données, le mineur peut consentir seul au traitement des données à caractère personnel.
+7. Les données personnelles d'un utilisateur doivent être à tout moment, rectifiable, effaçables, et restituables. Le délai pour effectuer ces actions suite à la demande est un mois. 
 ## Communautés et personnes
 Les personnes et les communautés possèdent éventuellement des comptes en Ğ1. On devra stocker leurs clés publiques.
 ### Personne (Utilisateur)
 #### Attributs
-1. Toute personne sera identifiée par son nom d'utilisateur. Deux personnes ne pourront pas choisir le même nom d'utilisateur.
-2. Elle devra préciser son nom, prénom. Elle peut définir des détails divers liés à sa personne (âge, date de naissance, etc. ). 
-3. S'il souhaite être capable de réinitialiser son mot de passe, l'utilisateur devra obligatoirement renseigner un email.
-4. Les personnes peuvent se localiser avec des coordonnées géographiques définies par la longitude et la latitude. 
+1. Toute personne sera identifiée par une clé artificielle. 
+> Le choix de la clé artificielle relève de critères de performances et d'extensibilité. Il sera plus facile d'effectuer des changements si l'utilisateur est identifiée par une clé primaire séquentielle. Il est également plus rapide de chercher un contenu léger (un octet), qu'une chaîne de caractères. 
+2. Un utilisateur devra spécifier un nom d'utilisateur. Deux personnes ne pourront pas choisir le même nom d'utilisateur.
+3. Elle devra préciser son nom, prénom. Elle peut définir des détails divers liés à sa personne (âge, date de naissance, etc.). 
+4. S'il souhaite être capable de réinitialiser son mot de passe, l'utilisateur devra obligatoirement renseigner un email.
+5. Les personnes peuvent se localiser avec des coordonnées géographiques définies par la longitude et la latitude.
 #### Méthodes
 1. Concernant la localisation, on pourra produire un lien sur openstreetmap.org. Exemple : https://www.openstreetmap.org/#map=17/49.41957/2.82243 (où 17 est ici le niveau de zoom).
 #### Droits et restrictions
@@ -67,13 +87,14 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
    1. faire partie d'une communauté,
    2. avoir un lien avec d'autres personnes.
 3. Les déclarations sont obligatoirements exécutées par l'utilisateur lui-même. Une personne B ne peut pas réaliser une déclaration pour une personne A.
-4. Pour les utilisateurs âgés de moins de 15 ans, le consentement conjoint du mineur et du/des titulaires de l'autorité parentale devra être recueilli.
-5. Pour les mineurs âgés de 15 ans et plus, comme le précise l'article 7-1 de la loi relative à la protection des données, le mineur peut consentir seul au traitement des données à caractère personnel.
 #### Remarques additionnelles
 1. On considèrera les coordonées géographiques comme un type de données à part comprenant la latitude, longitude et le zoom pour obtenir un lien. La latitude et la longitude seront obligatoirement spécifiés. Le zoom est facultatif.  
 ### Communautés
 #### Attributs
-1. Une communauté sera identifiée par son nom. Deux communautés ne pourront donc pas avoir le même nom.
+1. Une communauté sera identifiée par une clé artificielle.
+> Le choix de la clé artificielle correspond à des critères d'extensibilité et de performances, similaires au choix d'utiliser une clé artificielle pour un utilisateur. On veut par exemple se laisser la possibilité de renommer une communauté. Ce n'est pas possible si le nom d'une communauté est immuable.
+2. Une communauté est muni d'un nom. Deux communautés ne pourront donc pas avoir le même nom.
+3. On enregistrera la date de création d'une communauté.
 #### Droits et restrictions
 1. Toute communauté pourra déclarer un lien unidirectionnel avec une autre communauté.
 2. L'administration d'une communauté est déléguée à tous les membres de la communauté. Ils ont tous les mêmes droits et accès.
@@ -100,10 +121,10 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 > On souhaite se protéger d'un effet domino positif. C'est-à-dire que les déclarations d'appartenances invalides ne redeviennent pas valides en chaîne suite à l'arrivée d'un nouveau membre.
 ### Déclaration de lien
 #### Attributs
-1. On rappelle que les liens sont considérés comme unidirectionnels, c'est à dire d'un émetteur à un récepteur. 
-2. Les liens comportent obligatoirement une description. 
+1. On rappelle que les liens sont considérés comme unidirectionnels, c'est à dire d'un émetteur à un récepteur.
+2. Les liens comportent obligatoirement une description.
 #### Droits et restrictions
-1. Les liens entre communautés ou entre personnes sont uniques. Il ne peut exister qu'un lien entre deux entités distinctes.
+1. Les liens entre communautés ou entre personnes sont uniques. Il ne peut exister qu'un lien entre deux entités distinctes de même type.
 3. Les déclarations de liens peuvent uniquement se réaliser de personne à personne ou de communauté à communauté distinctes. La gestion des liens d'une communauté est laissé à la discrétion de ses membres.
 4. L'entité réceptrice de la déclaration de lien peut décider de l'accepter ou non.
 > Malgré qu'on souhaite que le lien soit unidirectionnel, on accordera au récepteur de la déclaration de lien un droit de regard dans le but de minimiser les abus. On ne souhaite pas qu'un utilisateur déclare des liens qui n'existent pas. 
@@ -126,11 +147,14 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 Elle permet à chaque personne d'avoir la liste des communautés auxquelles il déclare appartenir avec un booléen qui détermine si la personne est exclue ou non.
 ## Services
 ### Description
-1. Pour faciliter l'échange de services et promouvoir l'interaction sociale, on considèrera qu'un service peut être proposé, ou demandé. Les utilisateurs ne sont pas dépendants de l'offre, mais explicitent également la demande. De même, la palette d'offres peut inspirer les utilisateurs quant aux compétences qu'ils estiment posséder.
-2. Les services peuvent être publiés par n'importe quelle personne. 
-3. Les services sont publiés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1. 
+Pour faciliter l'échange de services et promouvoir l'interaction sociale, on considèrera qu'un service peut être proposé, ou demandé. Les utilisateurs ne sont pas dépendants de l'offre, mais explicitent également la demande. De même, la palette d'offres peut inspirer les utilisateurs quant aux compétences qu'ils estiment posséder.
+Le service est une classe abstraite. 
 ### Attributs
-1. Un service sera identifié 
+1. Le service possèdera un nom, une description, une date de publication et éventuellement un montant correspondant au paiement en G1, ou une contre-partie définie plus bas.
+2. Un service sera identifié par une clé artificielle, comme il est très difficile de trouver une clé naturelle. On aurait pu proposer d'identifier le service avec le nom, l'auteur, et la date de publication.
+### Droits et restrictions
+3. Les services peuvent être publiés par n'importe quelle personne. 
+4. Les services sont publiés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1. 
 ### Services commercialisé
 ### Service avec contre-partie
 1. Une personne ne pourra accéder aux services avec contre-partie commerciale si elle n'a pas de compte en Ğ1.
@@ -148,28 +172,45 @@ Elle permet à chaque personne d'avoir la liste des communautés auxquelles il d
 4. Les savoir-faire peuvent être possédés sans limites. Une personne et/ou une communauté peut posséder autant de savoir-faire qu'elle le souhaite.
 ### Remarques additionnelles
 1. Il n'y aura aucune vérification de légitimité.
-2. On implémentera une vérification suffisament solide pour éviter les erreurs utilisateurs du type création de deux savoir-faire avec un  On se munira d'un correcteur orthographique. 
+2. On implémentera une vérification suffisament solide pour éviter les erreurs utilisateurs du type création de deux savoir-faire avec un nom similaire. On se munira d'un correcteur orthographique. 
 ## Transactions
-
 ## Comptes
 ### Attributs
 1. Un compte sera identifié par sa clé publique.
 ### Droits et restrictions
 1. Un compte ne peut appartenir qu'à une communauté ou à une personne. Il n'y a pas de compte partagé entre deux entités.
 2. On peut associer à une communauté ou à un membre plusieurs comptes à la fois.
-## Messagerie (Messages)
+## Transactions
+Les transactions n'apparaissent en somme pas dans la base de données, vu qu'elles seront présentes dans les noeuds.
+On pourra se munir de l'API de Césium pour prendre en charge les transactions. https://g1.duniter.fr/api/#/app/home. 
+## Système de messagerie
 Les personnes et communautés peuvent s'échanger des messages. L'échange de message peut se réaliser entre deux personnes, deux communautés, ou une communauté et une personne et inversement.
-### Attributs
-1. Un message est la propriété intégrale de son expéditeur. 
-2. Un message sera identifié par son expéditeur, son destinataire et un timestamp.
-3. Il s'adresse à un expéditeur et peut faire référence à un autre message.
-### Droits et restrictions
+> Par soucis d'extensibilité, on s'efforcera de mettre en place des relations permettant une conversation de groupe. 
+### Conversation
+Chaque conversation correspond à un ensemble de messages entre deux entités. C'est un historique des messages entre deux entités. Il n'existe que s'il existe des messages entre deux entités. 
+> On se garde la possibilité d'étendre les conversations à plus de deux entités dans le futur.  
+#### Attributs
+1. Une conversation sera identifiée par une clé artificielle séquentielle dans un soucis de performances et d'extensibilité. 
+2. Une conversation contiendra l'id du dernier message envoyé. Il faudra le mettre à jour dynamiquement.
+> On pourra éventuellement stocker la date et heure à laquelle un participant a lu les messages d'une conversation.
+#### Droits et restrictions
+1. Une conversation ne peut pas être supprimée intégralement par un seul des deux partis. Il faudra l'accord des deux partis, car les messages sont la propriété inntégrale de leurs expéditeurs.
+2. Un parti pourra choisir de supprimer uniquement tous les messages qu'il a envoyé.
+### Messages
+#### Attributs
+1. Un message est muni d'un contenu, et d'une date de création.
+2. Le message provient d'un expéditeur (utilisateur, ou communauté), 
+3. Un message sera identifié par une clé artificielle dans un soucis de performance et d'extensibilité.
+> On aurait pu proposer d'identifier un message avec une clé naturelle telle que l'id de l'utilisateur, l'id de la conversation, et un timestamp du message. 
+#### Droits et restrictions
 1. Un message peut être supprimé et/ou modifié par son expéditeur.
 ### Vue message
 On proposera la vue message qui permet de visualiser chaque message en ajoutant l'identifiant du message d'origine lorsque le message s'inscrit dans un fil historique. Par exemple si C → B → A alors on veut voir la référence à A lorsqu'on affiche C.
 ### Remarques additionnelles
-1. Un utilisateur peut s'envoyer un message à lui-même. On pourra toujours trouver le message d'origine. 
+1. Un message est la propriété intégrale de son expéditeur. Il constitue une donnée à caractère personnelle.
+2. Un utilisateur peut s'envoyer un message à lui-même. On pourra toujours trouver le message d'origine. 
 > La vue message trouvera forcément un message d'origine. Effectivement, il ne peut pas exister de cycle. Un message ne peut pas faire référence à une message qui aurait été envoyé après lui ...
+3. Au niveau de l'implémentation, on aura trois relations : conversations, participants, et message. La table participants est une table d'association pour savoir qui participe à une conversation. Elle ne serait pas nécessaire si on se restreignait à un système de messagerie en deux entités uniquement. Cependant, comme dit plus haut, par soucis d'extensibilité, on souhaite se faciliter la tâche si on change cette restriction ultérieurement.
 
 
 
