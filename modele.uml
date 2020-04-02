@@ -13,6 +13,8 @@ hide circle
 !define datatype(x) class "x" <<datatype>>
 !define abstract(x) class "x" <<abstract>>
 !define association(x) class "x" 
+!define classe_associationRight(x,y,z,k) (x, y) k z
+!define classe_associationLeft(x,y,z,k) z k (x, y)
 ' CLASSES CONCRETES
 class Communauté {
     nom : string {not null}
@@ -31,7 +33,7 @@ class Personne {
 class Compte {
     public_key : string {key}
 }
-class Savoir-faire {
+class SavoirFaire {
     nom : string {key}
 }
 class Lien {
@@ -59,8 +61,9 @@ class "Service avec contre-partie" {
 }
 class "Service sans contre-partie" 
 ' CLASSES D'ASSOCIATIONS
-association(Déclaration d'appartenance) {
+association(DéclarationAppartenance) {
     validité : bool
+    maj()
 }
 association(Possède) {
     degré : {1,2,3,4,5}
@@ -73,7 +76,48 @@ datatype(Coordonnées géographiques)  {
 }
 
 ' ASSOCIATIONS SIMPLES BIDIRECTIONNELLES
+"Compte" "1" -- "*" "Service commercialisé" : rémunération\t\t\t\t\t\t
+"Compte" "*" - "1" "Communauté" : possède
+"Compte" "*" -- "1" "Personne" : possède
+
+"Communauté" - "SavoirFaire" 
+"Personne" - "SavoirFaire" 
+"SavoirFaire" - "Service" : en lien
+
+"Personne" "*" -- "*" "DéclarationAppartenance" : s'opposer
+note left on link
+La personne doit appartenir
+à la communauté pour s'opposer
+à la déclaration d'appartenance.
+endnote
 ' ASSOCIATIONS SIMPLES UNIDIRECTIONNELLE
+"Service avec contre-partie" "1" -> "   0...1" "Service avec contre-partie"
+"Service avec contre-partie" "1" -> "0...1" "Service sans contre-partie"
+"Service avec contre-partie" "1" --> "0...1" "Service commercialisé"
+
+"Message" "*" --> "1" "Message" : faire référence
+' HERITAGE
+"Service commercialisé" --|> "Service"
+"Service avec contre-partie" --|> "Service"
+"Service sans contre-partie" --|> "Service"
+
 ' AGREGATIONS
+"Message" "*" --* "1" "Conversation" : faire partie de
+' COMPOSITION
+"Personne" "1...*" -o "*" "Communauté" : appartient à
+"Communauté" "1" --o "*" "Lien" : émetteur
+"Communauté" "1" --o "*" "Lien" : récepteur
+
+"Personne" "1" -o "*" "Lien" : émetteur\t\t\t\t\t\t\t\t\t\t\t
+"Personne" "1" -o "*" "Lien" : récepteur\t\t\t\t\t\t\t\t\t
+
+"Communauté" "2" --o "*" "Conversation" : participer
+"Personne" "2" -o "*" "Conversation" : participer
+
 ' CLASSES D'ASSOCIATIONS 
+classe_associationLeft(SavoirFaire, Communauté, Possède, .)
+classe_associationRight(SavoirFaire, Personne, Possède, .)
+
+classe_associationLeft(Personne, Communauté, DéclarationAppartenance, ..)
+
 @enduml

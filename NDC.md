@@ -152,12 +152,17 @@ Pour faciliter l'échange de services et promouvoir l'interaction sociale, on co
 Le service est une classe abstraite. 
 ### Attributs
 1. Le service possèdera un nom, une description, une date de publication, ou une contre-partie définie plus bas.
-2. On enregistrera l'auteur du service.
+2. On enregistrera l'auteur du service. Il peut être une communauté, ou une personne.
 3. Un service sera identifié par une clé artificielle, comme il est très difficile de trouver une clé naturelle. On aurait pu proposer d'identifier le service avec le nom, l'auteur, et la date de publication.
 ### Droits et restrictions
 1. Les services peuvent être publiés par n'importe quelle personne. 
 2. Les services ne peuvent être modifiés que par leur auteur. 
 3. Les services sont publiés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1. 
+4. Les services ne pourront être réalisées que par un unique individu. 
+5. Les individus exclus d'une communauté A ne sont pas restreints de réaliser un service pour la communauté A.
+6. Un service ne peut être que d'un type à la fois.
+7. Un service ne peut être la contre-partie que d'un unique service avec contre-partie. 
+> C'est-à-dire qu'on ne pourra par exemple proposer la réalisation d'un service en contre-partie d'un autre qu'une fois. 
 ### Services commercialisé
 1. Un montant sera obligatoirement précisé.
 2. Une personne ne pourra accéder aux services avec contre-partie commerciale si elle n'a pas de compte en Ğ1.
@@ -170,6 +175,7 @@ Le service est une classe abstraite.
 1. Au niveau de l'implémentation, un service avec contre-partie peut être lié avec un service sans contre-partie, un service commercialisé, ou un autre service avec contre-partie dans la mesure où tous ces services sont identifiés. Un service identifié est un service qui a été enregistré dans notre BDD. Un service (contre partie) non identifié(e) s'exprimerait sur le mode descriptif, par exemple pourrait y figurer plusieurs propositions. L'utilisateur serait alors soumis à un choix : par exemple, jardinage ou cours de danse. On le considèrera comme un champ de texte personalisé. 
 2. Concrètement, un utilisateur crée un service A, dit avec contre-partie. La contre-partie associée est alors soit identifiée, soit non identifiée. On dit d'une contre-partie qu'elle est identifiée si l'utilisateur renseigne dans la base de données le service qu'il propose en échange. La contre-partie est non identifiée quand l'utilisateur décrit le(s) type(s) de service au(x)quel(s) il aimerait répondre (généralement correlé(s) aux savoir-faire qu'il possède).
 3. Il est tout à fait possible que la contre-partie d'un service soit décrite comme une rémunération monétaire. Les utilisateurs sont libres de l'utilisation de Résilience. Même si ce type de service n'est pas censé être utilisé avec ces intentions en tête.
+4. Si un individu se porte candidat à la réalisation d'un service, cela fait office de déclaration d'honneur. On avertira le candidat s'il n'a pas les savoir-faire, ou s'il n'a pas le degré de maîtrise suffisant. 
 ## Savoir-faire
 ### Attributs
 1. Un savoir-faire est identifié par son nom. Deux savoir-faire ne peuvent pas avoir le même nom.
@@ -190,7 +196,7 @@ Le service est une classe abstraite.
 2. On peut associer à une communauté ou à un membre plusieurs comptes à la fois.
 ## Transactions
 Les transactions n'apparaissent en somme pas dans la base de données, vu qu'elles seront présentes dans les noeuds.
-On pourra se munir de l'API de Césium pour prendre en charge les transactions. https://g1.duniter.fr/api/#/app/home. 
+On pourra se munir de l'API de Césium pour prendre en charge les transactions. https://g1.duniter.fr/api/#/app/home.
 ## Système de messagerie
 Les personnes et communautés peuvent s'échanger des messages. L'échange de message peut se réaliser entre deux personnes, deux communautés, ou une communauté et une personne et inversement.
 > Par soucis d'extensibilité, on s'efforcera de mettre en place des relations permettant une conversation de groupe. 
