@@ -85,8 +85,8 @@ datatype(Coordonnées géographiques)  {
 "Compte" "*" -- "1" "Communauté" : possède
 "Compte" "*" -- "1" "Personne" : possède
 
-"Communauté" "*" - "*" "SavoirFaire" 
-"Personne" "*" - "*" "SavoirFaire" 
+"Communauté" "*" -- "*" "SavoirFaire" 
+"Personne" "*" -- "*" "SavoirFaire" 
 "SavoirFaire" - "Service" : en lien
 
 "Personne" "*" -- "*" "DéclarationAppartenance" : s'opposer
@@ -96,11 +96,11 @@ La personne doit appartenir
 à la déclaration d'appartenance.
 endnote
 
-"Personne" "1" - "*" "Service" : proposer
-"Communauté" "1" - "*" "Service" : proposer
+"Personne" "1" -- "*" "Service" : proposer
+"Communauté" "1" -- "*" "Service" : proposer
 
-"Personne" "*" - "*" "Service" : participer
-"Communauté" "*" - "*" "Service" : participer
+"Personne" "*" -- "*" "Service" : participer
+"Communauté" "*" -- "*" "Service" : participer
 
 ' ASSOCIATIONS SIMPLES UNIDIRECTIONNELLE
 "Service avec contre-partie" "1" -> "   0...1" "Service avec contre-partie"
@@ -120,31 +120,34 @@ endnote
 ' HERITAGE
 "Service commercialisé" --|> "Service"
 "Service avec contre-partie" --|> "Service"
-"Service sans contre-partie" --|> "Service"
+"Service" <|- "Service sans contre-partie"
 
 ' AGREGATIONS
 "Message" "*" --* "1" "Conversation" : faire partie de
 
 ' COMPOSITION
-"Personne" "1...*" -o "*" "Communauté" : appartient à
-"Communauté" "1" --o "*" "Lien" : émetteur
-"Communauté" "1" --o "*" "Lien" : récepteur
+"Personne" "*" --o "1...*" "Communauté" : appartient à
+"Communauté" "1" -o "*" "Lien" : émetteur
+"Communauté" "1" -o "*" "Lien" : récepteur
 
 "Personne" "1" -o "*" "Lien" : émetteur
 "Personne" "1" -o "*" "Lien" : récepteur
 
-"Conversation" "*" --o "1...2" "Communauté" : participer
-"Personne" "1...2" --o "*" "Conversation" : participer
-note bottom of "Conversation"
-Une conversation se déroule entre entre entités. 
-Communauté à communauté, personne à personne,
-ou communauté à personne et inversement.
+"Conversation" "*" o-- "1...2" "Communauté" : participer
+"Conversation" "*" o- "1...2" "Personne" : participer
+note left of "Conversation"
+Une conversation se déroule
+entre entre entités. 
+Communauté à communauté,
+personne à personne, ou 
+communauté à personne 
+et inversement.
 endnote
 
 ' CLASSES D'ASSOCIATIONS 
 classe_associationLeft(SavoirFaire, Communauté, Possède, .)
 classe_associationRight(SavoirFaire, Personne, Possède, .)
 
-classe_associationLeft(Personne, Communauté, DéclarationAppartenance, ..)
+classe_associationLeft(Communauté, Personne, DéclarationAppartenance, ..)
 
 @enduml
