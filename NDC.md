@@ -167,14 +167,17 @@ Le service est une classe abstraite.
 1. Les services peuvent être publiés par n'importe quelle personne. 
 2. Les services ne peuvent être modifiés que par leur auteur. 
 3. Les services sont publiés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1. 
-4. Les services ne pourront être réalisées que par un unique individu. 
-5. Les individus exclus d'une communauté A ne sont pas restreints de réaliser un service pour la communauté A.
-6. Un service ne peut être que d'un type à la fois.
-7. Un service ne peut être la contre-partie que d'un unique service avec contre-partie. 
+4. Les services peuvent être réalisés par autant de personnes que souhaite l'auteur. 
+5. Un service peut être réalisé par une communauté, mais elle doit préciser le nombre de membres qui réalise le service, celui-ci ne doit pas excéder le nombre fixé par l'auteur du service.
+6. Les individus exclus d'une communauté A ne sont pas restreints de réaliser un service pour la communauté A.
+7. Un service ne peut être que d'un type à la fois.
+8. Un service ne peut être la contre-partie que d'un unique service avec contre-partie. 
 > C'est-à-dire qu'on ne pourra par exemple proposer la réalisation d'un service en contre-partie d'un autre qu'une fois. 
 ### Services commercialisé
 1. Un montant sera obligatoirement précisé.
 2. Une personne ne pourra accéder aux services avec contre-partie commerciale si elle n'a pas de compte en Ğ1.
+3. La répartition de la rémunération sera fait de manière égale entre tous les participants au service. 
+4. On vérifiera que le solde du compte de l'auteur soit suffisant, c'est-à-dire supérieur au montant. Si le montant est insuffisant, il est techniquement possible de proposer à l'auteur d'attendre X nombre de jours, calculé en fonction de la dividende universelle. 
 ### Service avec contre-partie
 1. Le service avec contre-partie peut se baser sur le troc. La contre-partie sera éventuellement décrite textuellement.
 2. La contre-partie d'un service peut-être la réalisation d'un autre service. 
@@ -185,6 +188,7 @@ Le service est une classe abstraite.
 2. Concrètement, un utilisateur crée un service A, dit avec contre-partie. La contre-partie associée est alors soit identifiée, soit non identifiée. On dit d'une contre-partie qu'elle est identifiée si l'utilisateur renseigne dans la base de données le service qu'il propose en échange. La contre-partie est non identifiée quand l'utilisateur décrit le(s) type(s) de service au(x)quel(s) il aimerait répondre (généralement correlé(s) aux savoir-faire qu'il possède).
 3. Il est tout à fait possible que la contre-partie d'un service soit décrite comme une rémunération monétaire. Les utilisateurs sont libres de l'utilisation de Résilience. Même si ce type de service n'est pas censé être utilisé avec ces intentions en tête.
 4. Si un individu se porte candidat à la réalisation d'un service, cela fait office de déclaration d'honneur. On avertira le candidat s'il n'a pas les savoir-faire, ou s'il n'a pas le degré de maîtrise suffisant. 
+5. Dans le cadre du projet, nous n'aborderons pas les conditions et ramifications légales de la mise en place d'un système/processus de validation/complétion d'un service. On peut imaginer se dédouanner de toute responsabilité à ce niveau-là, mais cela impliquerait une énorme baisse de confiance dans le réseau Résilience, qui serait mené par l'attitude la communauté. Nous aurions moins de contrôle sur les abus.
 ## Savoir-faire
 ### Attributs
 1. Un savoir-faire est identifié par son nom. Deux savoir-faire ne peuvent pas avoir le même nom.
@@ -192,10 +196,12 @@ Le service est une classe abstraite.
 1. L'ajout de savoir-faire est géré par l'ensemble des membres de Résilience. Chacun peut en rajouter. 
 2. Une personne ou une communauté peut déclarer posséder un savoir-faire. 
 3. Une personne ne peut déclarer un savoir-faire que pour elle-même, ou pour les communautés auxquelles elle appartient par extension à la règle d'administration des communautés.
-4. Les savoir-faire peuvent être possédés sans limites. Une personne et/ou une communauté peut posséder autant de savoir-faire qu'elle le souhaite.
+4. Une communauté n'est pas obligée qu'un membre possède un savoir-faire pour le déclarer.
+5. Les savoir-faire peuvent être possédés sans limites. Une personne et/ou une communauté peut posséder autant de savoir-faire qu'elle le souhaite.
 ### Remarques additionnelles
 1. Il n'y aura aucune vérification de légitimité.
 2. On implémentera une vérification suffisament solide pour éviter les erreurs utilisateurs du type création de deux savoir-faire avec un nom similaire. On se munira d'un correcteur orthographique. 
+3. On pourra proposer une vue "savoir-faire de la communauté" qui recense tous les savoir-faire des membres d'une communauté. Cette vue n'est disponible qu'aux membres de la communauté.
 ## Transactions
 ## Comptes
 ### Attributs

@@ -18,19 +18,21 @@ hide circle
 ' CLASSES CONCRETES
 class Communauté {
     nom : string {not null}
+    description : string
     date_creation : date
 }
 class Personne {
     username : string {unique, not null}
     nom : string {not null}
     prénom : string {not null}
-    âge : integer {âge > 0}
+    date_de_naissance : integer
     email : string 
     localisation : Coordonnées géographiques
     lien_openstreetmap(Coordonnées géographiques) : URL
     sel : string {not null}
     iteration : integer {iteration > 0}
     mot_de_passe : string {not null}
+    âge(): integer {âge > 0}
 }
 class Compte {
     public_key : string {key}
@@ -65,6 +67,7 @@ class "Service sans contre-partie"
 ' CLASSES D'ASSOCIATIONS
 association(DéclarationAppartenance) {
     validité : bool
+    taux_acceptation() : float
     maj()
 }
 association(Possède) {
@@ -79,11 +82,11 @@ datatype(Coordonnées géographiques)  {
 
 ' ASSOCIATIONS SIMPLES BIDIRECTIONNELLES
 "Compte" "1" -- "*" "Service commercialisé" : rémunération\t\t\t\t\t\t
-"Compte" "*" - "1" "Communauté" : possède
+"Compte" "*" -- "1" "Communauté" : possède
 "Compte" "*" -- "1" "Personne" : possède
 
-"Communauté" - "SavoirFaire" 
-"Personne" - "SavoirFaire" 
+"Communauté" "*" - "*" "SavoirFaire" 
+"Personne" "*" - "*" "SavoirFaire" 
 "SavoirFaire" - "Service" : en lien
 
 "Personne" "*" -- "*" "DéclarationAppartenance" : s'opposer
@@ -92,12 +95,28 @@ La personne doit appartenir
 à la communauté pour s'opposer
 à la déclaration d'appartenance.
 endnote
+
+"Personne" "1" - "*" "Service" : proposer
+"Communauté" "1" - "*" "Service" : proposer
+
+"Personne" "*" - "*" "Service" : participer
+"Communauté" "*" - "*" "Service" : participer
+
 ' ASSOCIATIONS SIMPLES UNIDIRECTIONNELLE
 "Service avec contre-partie" "1" -> "   0...1" "Service avec contre-partie"
 "Service avec contre-partie" "1" -> "0...1" "Service sans contre-partie"
 "Service avec contre-partie" "1" --> "0...1" "Service commercialisé"
+note right of "Service avec contre-partie"
+Un service avec contre-partie,
+s'il est lié à un service, ne
+peut être lié directement qu'à
+un seul autre service.
+Si le service avec contre-partie
+n'est pas lié à un autre service
+la description doit être non vide.
+endnote
 
-"Message" "*" --> "1" "Message" : faire référence
+"Message" "*" --> "0...1" "Message" : faire référence
 ' HERITAGE
 "Service commercialisé" --|> "Service"
 "Service avec contre-partie" --|> "Service"
@@ -105,16 +124,22 @@ endnote
 
 ' AGREGATIONS
 "Message" "*" --* "1" "Conversation" : faire partie de
+
 ' COMPOSITION
 "Personne" "1...*" -o "*" "Communauté" : appartient à
 "Communauté" "1" --o "*" "Lien" : émetteur
 "Communauté" "1" --o "*" "Lien" : récepteur
 
-"Personne" "1" -o "*" "Lien" : émetteur\t\t\t\t\t\t\t\t\t\t\t
-"Personne" "1" -o "*" "Lien" : récepteur\t\t\t\t\t\t\t\t\t
+"Personne" "1" -o "*" "Lien" : émetteur
+"Personne" "1" -o "*" "Lien" : récepteur
 
-"Communauté" "2" --o "*" "Conversation" : participer
-"Personne" "2" -o "*" "Conversation" : participer
+"Conversation" "*" --o "1...2" "Communauté" : participer
+"Personne" "1...2" --o "*" "Conversation" : participer
+note bottom of "Conversation"
+Une conversation se déroule entre entre entités. 
+Communauté à communauté, personne à personne,
+ou communauté à personne et inversement.
+endnote
 
 ' CLASSES D'ASSOCIATIONS 
 classe_associationLeft(SavoirFaire, Communauté, Possède, .)
