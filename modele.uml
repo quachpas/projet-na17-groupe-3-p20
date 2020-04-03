@@ -48,6 +48,7 @@ class Conversation {
 }
 class Message {
     contenu : string {not null}
+    date_creation : date {not null}
 }
 ' CLASSES ABSTRAITE
 abstract(Service) {
