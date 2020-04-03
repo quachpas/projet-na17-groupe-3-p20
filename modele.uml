@@ -25,10 +25,12 @@ class Personne {
     nom : string {not null}
     prénom : string {not null}
     âge : integer {âge > 0}
-    mot_de_passe : string {not null}
     email : string 
     localisation : Coordonnées géographiques
     lien_openstreetmap(Coordonnées géographiques) : URL
+    sel : string {not null}
+    iteration : integer {iteration > 0}
+    mot_de_passe : string {not null}
 }
 class Compte {
     public_key : string {key}

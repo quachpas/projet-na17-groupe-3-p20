@@ -47,6 +47,7 @@ On proposera au moins les trois vues suivantes :
 ## Modèle UML (MCD)
   1. Rendu au format plantuml.
   2. [Modèle UML](modele.uml).
+   > Le rendu graphviz n'est pas parfait. Il faut se référer au fichier texte.
 ## MLD relationnel
 1. Rendu au format plain text.
 2. [MLD relationnel](MLD%20relationnel.txt)

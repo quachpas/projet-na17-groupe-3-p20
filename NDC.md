@@ -90,6 +90,14 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 3. Les déclarations sont obligatoirements exécutées par l'utilisateur lui-même. Une personne B ne peut pas réaliser une déclaration pour une personne A.
 #### Remarques additionnelles
 1. On considèrera les coordonées géographiques comme un type de données à part comprenant la latitude, longitude et le zoom pour obtenir un lien. La latitude et la longitude seront obligatoirement spécifiés. Le zoom est facultatif.  
+2. On implémentera si possible une forte sécurité au niveau du mot de passe utilisateur, c'est-à-dire qu'on l'encryptera.
+   1. On se munira d'un sel pour contrecarrer l'utilisation de *rainbow tables*. Le sel devra être généré en utilisant un [CSPRNG](https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator). Le sel est unique pour chaque utilisateur et son mot de passe. Il sera regénéré si l'utilisateur change de mot de passe.
+   2. On utilisera une fonction d'étirement de clé pour se protéger contre les attaques par force brute. Par exemple, PBKDF2.
+   3. Le mot de passe sera enregistré encrypté dans la base de données. 
+   4. Le processus de connexion se déroulera au mieux ainsi :
+      1. L'utilisateur rentre son mot de passe côté client. Le mot de passe naturel est envoyé au serveur via HTTPS (sécurisé). 
+      2. Le serveur encrypte le mot de passe en utilisant le sel et le nombre d'itérations et le compare au mot de passe encrypté sur le serveur. 
+      3. Le serveur valide ou non la connexion du client.
 ### Communautés
 #### Attributs
 1. Une communauté sera identifiée par une clé artificielle.

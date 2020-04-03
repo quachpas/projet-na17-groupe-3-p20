@@ -1,0 +1,10 @@
+Personne(
+    user_id : serial {primary key},
+    username : string {not null},
+    prenom : string {not null},
+    nom : string {not null},
+    age : integer {age > 0},
+    salt : string {not null},
+    iteration : integer {iteration > 0, not null}
+    mdp : string {not null},
+)
