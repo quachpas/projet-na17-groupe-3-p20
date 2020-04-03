@@ -98,6 +98,7 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
       1. L'utilisateur rentre son mot de passe côté client. Le mot de passe naturel est envoyé au serveur via HTTPS (sécurisé). 
       2. Le serveur encrypte le mot de passe en utilisant le sel et le nombre d'itérations et le compare au mot de passe encrypté sur le serveur. 
       3. Le serveur valide ou non la connexion du client.
+   5. La connexion persistente nécessiterait de stocker en base de données un cookie, et des informations supplémentaires de connexion, telle que l'adresse I.P. utilisée lors de la connexion, etc. Elle représenterait une table séparée de la table utilisateur. 
 ### Communautés
 #### Attributs
 1. Une communauté sera identifiée par une clé artificielle.
