@@ -221,9 +221,9 @@ On note $personne_id l'identifiant de la personne pour laquelle on considère la
 
     32,341526 seconde d'arc = 1km
 
-    32,341526/60 = 0,539025
+    32,341526/60 = 0,53903
 
-    Dans une distance inférieure à 1km si +/- 0,539025 
+    Dans une distance inférieure à 1km si +/- 0,53902 
 
     */
 
@@ -235,9 +235,9 @@ On note $personne_id l'identifiant de la personne pour laquelle on considère la
 
     R2 = PROJECTION(Communauté, Communaute.communaute_id, nom_communaute = Communaute.nom, Communaute.description, long_diff = Communaute.longitude - R0.longitude, lat_diff = Personne.latitude - R0.latitude)
 
-    R3 = RESTRICTION(R1, R1.long_diff <= 0,539025, R1.lat_diff <= 0,539025)
+    R3 = RESTRICTION(R1, R1.long_diff <= 0,539025, R1.lat_diff <= 0,53903)
 
-    R4 = RESTRICTION(R2, R2.long_diff <= 0,539025, R2.lat_diff <= 0,539025)
+    R4 = RESTRICTION(R2, R2.long_diff <= 0,539025, R2.lat_diff <= 0,53903)
 
     R5 = UNION(R3, R4)
 
