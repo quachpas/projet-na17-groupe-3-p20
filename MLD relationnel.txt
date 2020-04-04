@@ -46,17 +46,24 @@ DeclarationAppartenance (
 
 Opposition {
 
-    #detracteur=>Personne.user_id
+    #detracteur => Personne.user_id
 
-    #declarant=>Personne.user_id,
+    #declarant => Personne.user_id,
 
-     #Communauté=> Communaute.communaute_id,
+     #Communauté => Communaute.communaute_id,
      PRIMARY KEY(detracteur, declarant, communaute)
 }
 
-Lien (
-    Emetteur :
-
+LienPersonne (
+    Emetteur => Personne.user_id,
+    Recepteur => Personne.user_id,
+    description : string
+)
+LienCommunaute (
+    Emetteur => Communaute.communaute_id,
+    Recepteur => Communaute.communaute_id
+    description : string
+)
 
     // On a choisi de ne pas mettre une clef artificielle et de séparer les classes Competences en deux
 
