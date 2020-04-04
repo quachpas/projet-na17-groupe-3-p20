@@ -23,7 +23,7 @@ Communaute (
 )
 
 Compte {
-     compte_id : serial {primary key}, //par soucis de manipulation de l'information
+    compte_id : serial {primary key}, //par soucis de manipulation de l'information
     public_key : string,
     proprietaire =>Personne.user_id,
     pommunaute => Communauté.communaute_id,
@@ -32,10 +32,33 @@ Compte {
     /* proprietaire is not NULL XOR communaute is not NULL */
 
 
-
+// On a choisi de ne pas mettre une clef artificielle et de séparer les classes Competences en deux
 SavoirFaire (
     #nom : string {nom < 30 caractères}
 )
+
+CompetencePersonne (
+
+    #savoirfaire => SavoirFaire.nom,
+
+    #porteur_personne => Personne.user_id,
+
+    degre : integer IN [1..5],
+
+    PRIMARY KEY(savoirfaire, porteur_personne)
+
+)
+
+CompetenceCommunaute (
+
+    #savoirfaire => SavoirFaire.nom,
+
+    #porteur_communaute => Communaute.communaute_id,
+
+    PRIMARY KEY(savoirfaire, porteur_communaute)
+
+)
+
 
 DeclarationAppartenance (
     #declarant=>Personne.user_id,
@@ -64,32 +87,6 @@ LienCommunaute (
     Recepteur => Communaute.communaute_id
     description : string
 )
-
-    // On a choisi de ne pas mettre une clef artificielle et de séparer les classes Competences en deux
-
-CompetencePersonne (
-
-    #savoirfaire => SavoirFaire.nom,
-
-    #porteur_personne => Personne.user_id,
-
-    degre : integer IN [1..5],
-
-    PRIMARY KEY(savoirfaire, porteur_personne)
-
-)
-
-CompetenceCommunaute (
-
-    #savoirfaire => SavoirFaire.nom,
-
-    #porteur_communaute => Communaute.communaute_id,
-
-    PRIMARY KEY(savoirfaire, porteur_communaute)
-
-)
-
-
 
 Messagerie
 
@@ -130,7 +127,7 @@ MessageCommunaute (
     utilisateur =>Communaute.communaute_id {not null},
     contenu : string {not null},
     #Conversation=>Conversation.conversation_id {not null},
-    date_creation : timestamp {not null}
+    date_creation : date {not null}
 )
 
 Reference (
