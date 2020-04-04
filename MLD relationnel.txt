@@ -135,31 +135,37 @@ Realisateurs (
 Vues
 
 - VUE COMMUNAUTE : permet pour chaque personne d'avoir la liste des communautés auxquelles il déclare appartenir avec un booléen qui détermine si la personne est exclue ou non.
-On note $user_id l'id de l'utilisateur pour lequel on considère les vues suivantes. 
 
-    R1 = RESTRICTION(DeclarationAppartenance, DeclarationAppartenance.declarant = $user_id)
-
-    R2 = JOINTURE(Communaute, R1 , Communaute.communaute_id = R1.communaute)
+    R1 = JOINTURE(Personne, DeclarationAppartenance, Personne.user_id = DeclarationAppartenance.user_id)
+    R2 = RESTRICTION(R1, R1.validite = TRUE)
+    R3 = JOINTURE(Communaute, R3, Communaute.communaute_id = R3.communaute)
 
     vCommunaute = PROJECTION(R2, R2.communaute_id, R2.nom, R2.description, R2.date_creation, R2.validite)
 
-
 - VUE MESSAGE : permet de visualiser chaque message en ajoutant l'identifiant du message d'origine lorsque le message s'inscrit dans un fil historique. Par exemple si C → B → A alors on veut voir la référence à A lorsqu'on affiche C
-On note $message_id l'identifiant du message pour lequel on considère la vue.
 
-    R0 = PROJECTION(RESTRICTION(Message, Message.message_id = $message_id), Message.content)
-    R1 = RESTRICTION(Reference, Reference.referenceur = $message_id)
-    IF R1 == EMPTYSET 
-        reference = NULL
-    ELSE
-        TANT QUE R1 <> EMPTYSET
-            reference = PROJECTION(R1, R1.reference)
-            R1 = RESTRICTION(Reference, Reference.referenceur = reference)
-        vMessage = UNION(R0, reference)
+    R0 = JOINTURE(Message, Reference, Message.message_id = Reference.referenceur)
+    R1 = PROJECTION(R0, R0.contenu, R0.message_id, R0.referenceur AS reference1, R0.reference AS reference2)
+    // Tant que toutes les references2 ne sont pas nulles (tant qu'il existe une référence on a pas trouvé la première référence)
+    WHILE (RESTRICTION(R1, R1.reference1) <> NULL) DO
+        // On sauvegarde la reference2
+        UPDATE(RESTRICTION(R1, R1.reference2 <> NULL)) SET R1.reference1 = R1.reference2
+        // On cherche la référence de la référence2. Jointure droite pour avoir les NULL
+        R2 = JOINTURE DROITE(RESTRICTION(R1, R1.reference2 <> NULL), reference, R1.reference2 = reference.referenceur)
+        // On met à jour la référence2 par la référence qu'on a trouvé
+        UPDATE(RESTRICTION(R1, R1.reference2 <> NULL)) SET R1.reference2 = R2.reference
+    // On obtient à la fin un tableau avec l'id du message d'origine, et la référence finale.
+    // On cherche le message de la référence
+    R3 = JOINTURE(R1, Message, R1.reference1 = Message.message_id)
+    vMessage = PROJECTION(R3, 
+    R3.R1.message_id AS id_message_original, 
+    R3.R1.contenu AS contenu_message_original,
+    R3.Message.message_id AS id_message_reference,
+    R3.Message.contenu AS contenu_message_reference
+    )
+
 
 - VUE PROCHE : permet de visualiser les communautés et personnes proches de chaque personne et communauté (à une distance inférieure à 1km)
-On note $communaute_id l'identifiant de la communaute pour laquelle on considère la vue proche.
-On note $personne_id l'identifiant de la personne pour laquelle on considère la vue proche.
     /* 1 seconde d'arc = 30,92 m 
     1 seconde d'arc = 1/60
     32,341526 seconde d'arc = 1km
@@ -167,13 +173,22 @@ On note $personne_id l'identifiant de la personne pour laquelle on considère la
     Dans une distance inférieure à 1km si +/- 0,53902 
     */
 
-    R0 = RESTRICTION(Personne, Utilisateur.user_id = $personne_id)
-    R1 = PROJECTION(Personne, Personne.user_id, Personne.nom, Personne.prenom, long_diff = Personne.longitude - R0.longitude, lat_diff = Personne.latitude - R0.latitude)
-    R2 = PROJECTION(Communauté, Communaute.communaute_id, nom_communaute = Communaute.nom, Communaute.description, long_diff = Communaute.longitude - R0.longitude, lat_diff = Personne.latitude - R0.latitude)
-    R3 = RESTRICTION(R1, R1.long_diff <= 0,539025, R1.lat_diff <= 0,53903)
-    R4 = RESTRICTION(R2, R2.long_diff <= 0,539025, R2.lat_diff <= 0,53903)
-    R5 = UNION(R3, R4)
-    vProche = PROJECTION(R5, R5.communaute_id, R5.nom_communaute, R5.description, R5.user_id, R5.nom, R5.prenom)
+    R1 = JOINTURE(Utilisateur, Personne, Utilisateur.user_id = Personne.user_id )
+    R2 = JOINTURE(Utilisateur, Communaute, Utilisateur.user_id = Communaute.communaute_id)
+    R3 = JOINTURE EXTERNE(R1, R2, R1.user_id = R2.communaute_id) // On joint les deux tables
+    R4 = PRODUIT(R3 AS R3A, R3 AS R3B)
+    R5 = PROJECTION(R4, 
+    R4.R3A.user_id, 
+    R4.R3A.Personne.prenom, 
+    R4.R3A.Personne.nom, 
+    R4.R3A.communaute_id,
+    R4.R3A.communaute.nom,
+    R4.R3A.description,
+    R4.R3A.longitude - R4.R3B.longitude AS long_diff,
+    R4.R3A.latitude - R4.R3B.latitude AS lat_diff,
+    )
+    vProche = RESTRICTION(R5, R5.long_diff >= -0,53902 AND R5.long_diff <= 0,53902 
+    AND R5.lat_diff >= -0,53902 AND R5.lat_diff <= 0,53902)
 
 Vue service Commercialisé :
     R1 = RESTRICTION(Service, service.type='AC')
