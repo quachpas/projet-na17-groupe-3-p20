@@ -52,19 +52,13 @@ DeclarationAppartenance (
 
 Opposition {
 
-    #detracteur => Utilisateur.user_id
-
+    #detracteur => Utilisateur.user_id,
     #declarant => Utilisateur.user_id,
-
     #communaute => Utilisateur.user_id,
-
     detracteur_type => Utilisateur.type,
-
     declarant_type => Utilisateur.type,
-
     communaute_type => Utilisateur.type,
-
-     PRIMARY KEY(detracteur, declarant, communaute)
+    PRIMARY KEY(detracteur, declarant, communaute)
 }
 
 Lien (
@@ -117,7 +111,7 @@ Service {
     desc_contre_partie : string,
     contre_partie=> Service.service_id,
     type : {'SC','C','AC'} {not null},
-    }
+}
     
     /*  
     if type = 'AC' then  (desc_contre_partie XOR contre_partie) AND montant NULL
@@ -139,8 +133,7 @@ Specialisation (
 
 Vues
 
-
--VUE COMMUNAUTE : permet pour chaque personne d'avoir la liste des communautés auxquelles il déclare appartenir avec un booléen qui détermine si la personne est exclue ou non.
+- VUE COMMUNAUTE : permet pour chaque personne d'avoir la liste des communautés auxquelles il déclare appartenir avec un booléen qui détermine si la personne est exclue ou non.
 On note $user_id l'id de l'utilisateur pour lequel on considère les vues suivantes. 
 
     R1 = RESTRICTION(DeclarationAppartenance, DeclarationAppartenance.declarant = $user_id)
@@ -156,20 +149,13 @@ On note $message_id l'identifiant du message pour lequel on considère la vue.
     R0 = PROJECTION(RESTRICTION(Message, Message.message_id = $message_id), Message.content)
     R1 = RESTRICTION(Reference, Reference.referenceur = $message_id)
     IF R1 == EMPTYSET 
-
         reference = NULL
-
     ELSE
-
         TANT QUE R1 <> EMPTYSET
-
-        reference = PROJECTION(R1, R1.reference)
-
-        R1 = RESTRICTION(Reference, Reference.referenceur = reference)
-
+            reference = PROJECTION(R1, R1.reference)
+            R1 = RESTRICTION(Reference, Reference.referenceur = reference)
         vMessage = UNION(R0, reference)
 
-  
 - VUE PROCHE : permet de visualiser les communautés et personnes proches de chaque personne et communauté (à une distance inférieure à 1km)
 On note $communaute_id l'identifiant de la communaute pour laquelle on considère la vue proche.
 On note $personne_id l'identifiant de la personne pour laquelle on considère la vue proche.
@@ -188,24 +174,19 @@ On note $personne_id l'identifiant de la personne pour laquelle on considère la
     R5 = UNION(R3, R4)
     vProche = PROJECTION(R5, R5.communaute_id, R5.nom_communaute, R5.description, R5.user_id, R5.nom, R5.prenom)
 
-
 Vue service Commercialisé :
-
     R1 = RESTRICTION(Service, service.type='AC')
     vServiceC = PROJECTION(R1, Service.id, Service.nom, Service.description, Service.date_publication, Service.montant)
 
 Vue service avec contre-partie :
-
     R1 = RESTRICTION(Service, Service.type = 'CP' AND Service.desc_contre_partie NOT NULL)
     R2 = PROJECTION(R1, R1.service_id, R1.nom, R1.description, R1.date_publication, R1.desc_contre_partie)
     R3 = RESTRICTION(Service, Service.type = 'CP' AND Service.contre_partie NOT NULL)
     R4 = JOINTURE(Service, R3, Service.service_id = R3.service_id)
     R5 = PROJECTION(R4, service_id = R4.Service.service_id, nom = R4.Service.nom, description = R4.Service.description, date_publication = Service.date_publication, cp_service_id = R4.R3.service_id, cp_nom = R4.R3.nom, cp_description = R4.R3.description, cp_date_publication = R4.R3.date_publication)
-
     vServiceCP = UNION(R2,R5)
     
 Vue service sans contre-partie :
-
     R1 = RESTRICTION(Service, service.type = 'SC')
     R2 = PROJECTION(R1, Service.service_id, Service.nom, Service.description, Service.date_publication)
 
