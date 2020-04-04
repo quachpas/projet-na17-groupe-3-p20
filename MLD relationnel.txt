@@ -40,7 +40,6 @@ Competence (
     PRIMARY KEY (savoirfaire, porteur)
 )
 
-
 DeclarationAppartenance (
     #declarant => Utilisateur.user_id,
     #communaute => Utilisateur.user_id,
@@ -87,7 +86,7 @@ Participant (
 )
 
 Message (
-     #message_id : serial {primary key},
+    #message_id : serial {primary key},
     #Conversation=> Conversation.conversation_id {primary key},
     expeditaire => Utilisateur.user_id,
     contenu : string {not null},
@@ -104,12 +103,14 @@ Service
 
 Service {
     #service_id : integer,
+    auteur => utilisateur.user_id,
     nom : string,
     description : string,
     date_publication : date,
     montant : float,
     desc_contre_partie : string,
     contre_partie=> Service.service_id,
+    nombre_max : integer,
     type : {'SC','C','AC'} {not null},
 }
     
@@ -118,17 +119,17 @@ Service {
     if type = 'C' then montant not NULL AND desc_contre_partie NULL AND contre_partie NULL
     if type = 'SC' then desc_contre_partie NULL AND montant NULL AND contre_partie NULL
     */
-
-Remuneration {
-    #Service=>service.service_id {primary key},
-    #Compte=>Compte.compte_id {primary key}
-} 
-/* PROJECTION(JOINTURE(Remuneration, Service, Remuneration.service = Service.service_id), type) = 'C'
         
 Specialisation (
     #savoirfaire => SavoirFaire.nom,
     #service=>Service.id_service,
     PRIMARY KEY(savoirfaire, service)
+)
+
+Realisateurs (
+    #service_id => service.service_id,
+    #user_id => utilisateurs.user_id,
+    PRIMARY KEY (service_id, user_id)
 )
 
 Vues
@@ -178,7 +179,7 @@ Vue service Commercialisé :
     R1 = RESTRICTION(Service, service.type='AC')
     vServiceC = PROJECTION(R1, Service.id, Service.nom, Service.description, Service.date_publication, Service.montant)
 
-Vue service avec contre-partie :
+Vue service avec contrepartie :
     R1 = RESTRICTION(Service, Service.type = 'CP' AND Service.desc_contre_partie NOT NULL)
     R2 = PROJECTION(R1, R1.service_id, R1.nom, R1.description, R1.date_publication, R1.desc_contre_partie)
     R3 = RESTRICTION(Service, Service.type = 'CP' AND Service.contre_partie NOT NULL)
@@ -186,7 +187,7 @@ Vue service avec contre-partie :
     R5 = PROJECTION(R4, service_id = R4.Service.service_id, nom = R4.Service.nom, description = R4.Service.description, date_publication = Service.date_publication, cp_service_id = R4.R3.service_id, cp_nom = R4.R3.nom, cp_description = R4.R3.description, cp_date_publication = R4.R3.date_publication)
     vServiceCP = UNION(R2,R5)
     
-Vue service sans contre-partie :
+Vue service sans contrepartie :
     R1 = RESTRICTION(Service, service.type = 'SC')
     R2 = PROJECTION(R1, Service.service_id, Service.nom, Service.description, Service.date_publication)
 
