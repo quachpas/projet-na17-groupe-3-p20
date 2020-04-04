@@ -1,132 +1,102 @@
 Utilisateurs 
 
+Utilisateur(
+    #user_id : serial {primary key},
+    longitude : float {longitude >= 0, longitude <= 360},
+    latitude : float {latitude >= 0, latitude <= 360},
+    zoom : int {zoom >=0, zoom <= 18},
+    type : {"P", "C"}
+)
+        
 Personne (
-    user_id : serial {primary key}, //par soucis de manipulation de l'information
+    #user_id => Utilisateur.user_id {primary key}, //par soucis de manipulation de l'information
     username : string {unique, not null},
     prenom : string {not null},
     nom : string {not null},
     naissance : date,
     hash_mdp : string {not null},
-    longitude : float {longitude >= 0, longitude <= 360}
-    latitude : float {latitude >= 0, latitude <= 360}
-    zoom : int {zoom >=0, zoom <= 18}
 )
 
 Communaute (
-    communaute_id : serial {primary key}
+    #communaute_id => Utilisateur.user_id {primary key},
     nom : string {unique, not null},
     description : string,
     date_creation : date {not null}
-    longitude : float {longitude >= 0, longitude <= 360}
-    latitude : float {latitude >= 0, latitude <= 360}
-    zoom : int {zoom >=0, zoom <= 18}
 )
 
 Compte {
     compte_id : serial {primary key}, //par soucis de manipulation de l'information
     public_key : string,
-    proprietaire =>Personne.user_id,
-    pommunaute => Communauté.communaute_id,
+    proprietaire => Utilisateur.user_id,
 }
 
-    /* proprietaire is not NULL XOR communaute is not NULL */
-
-
-// On a choisi de ne pas mettre une clef artificielle et de séparer les classes Competences en deux
 SavoirFaire (
     #nom : string {nom < 30 caractères}
 )
-
-CompetencePersonne (
-
+Competence (
     #savoirfaire => SavoirFaire.nom,
-
-    #porteur_personne => Personne.user_id,
-
-    degre : integer IN [1..5],
-
-    PRIMARY KEY(savoirfaire, porteur_personne)
-
-)
-
-CompetenceCommunaute (
-
-    #savoirfaire => SavoirFaire.nom,
-
-    #porteur_communaute => Communaute.communaute_id,
-
-    PRIMARY KEY(savoirfaire, porteur_communaute)
-
+    #porteur => Utilisateur.user_id,
+    degre : integer IN [1..5]
+    PRIMARY KEY (savoirfaire, porteur)
 )
 
 
 DeclarationAppartenance (
-    #declarant=>Personne.user_id,
-    #communauté=> Communaute.communaute_id,
-    validité : bool
+    #declarant => Utilisateur.user_id,
+    #communaute => Utilisateur.user_id,
+    declarant_type => Utilisateur.type,
+    communaute_type => Utilisateur.type,
+    validité : bool,
     PRIMARY KEY(declarant, communaute)
 )
 
 Opposition {
 
-    #detracteur => Personne.user_id
+    #detracteur => Utilisateur.user_id
 
-    #declarant => Personne.user_id,
+    #declarant => Utilisateur.user_id,
 
-     #Communauté => Communaute.communaute_id,
+    #communaute => Utilisateur.user_id,
+
+    detracteur_type => Utilisateur.type,
+
+    declarant_type => Utilisateur.type,
+
+    communaute_type => Utilisateur.type,
+
      PRIMARY KEY(detracteur, declarant, communaute)
 }
 
-LienPersonne (
-    Emetteur => Personne.user_id,
-    Recepteur => Personne.user_id,
-    description : string
+Lien (
+    #emetteur => Utilisateur.user_id,
+    #recepteur => Utilisateur.user_id,
+    emetteur_type => Utilisateur.type,
+    recepteur_type => Utilisateur.type,
+    description : string,
+    PRIMARY KEY (emetteur, recepteur)
 )
-LienCommunaute (
-    Emetteur => Communaute.communaute_id,
-    Recepteur => Communaute.communaute_id
-    description : string
-)
+/* Contraintes
+Emetteur et recepteurs sont de même type.
+*/
 
 Messagerie
 
 Conversation (
-    conversation_id : serial,
+    #conversation_id : serial {primary key},
     dernier_message =>Message.message_id,
 )
-
 //choix de faire une classe Participant (alors que tout pourrait être dans la table message), afin de pouvoir plus facilement étendre l'application (ajout de conversations de groupes)
-ParticipantPersonne (
-
-    #utilisateur=>Personne.user_id,
-
-    #conversation=>Conversation.conversation_id,
-
-    PRIMARY KEY(utilisateur, conversation)
-
-)
-ParticipantCommunaute (
-
-    #communaute=>Communaute.communaute_id,
-
-    #conversation=>Conversation.conversation_id,
-
-    PRIMARY KEY(communaute, conversation)
-
+Participant (
+    #utilisateur => Utilisateur.user_id,
+    #conversation_id => Conversation.conversation_id,
+    PRIMARY KEY (utilisateur, conversation_id)
 )
 
-MessagePersonne (
-    #message_id : integer {primary key},
-    utilisateur=>Personne.user_id {not null},
+Message (
+     #message_id : serial {primary key},
+    #Conversation=> Conversation.conversation_id {primary key},
+    expeditaire => Utilisateur.user_id,
     contenu : string {not null},
-    #Conversation=>Conversation.conversation_id {not null},
-    date_creation : date {not null}
-)
-MessageCommunaute (
-    #message_id : integer {primary key},
-    utilisateur =>Communaute.communaute_id {not null},
-    contenu : string {not null},
-    #Conversation=>Conversation.conversation_id {not null},
     date_creation : date {not null}
 )
 
@@ -135,7 +105,6 @@ Reference (
     #reference=>Message.message_id,
     PRIMARY KEY(referenceur, reference)
 )
-
 
 Service
 
@@ -157,11 +126,8 @@ Service {
     */
 
 Remuneration {
-
-    #Service=>service.service_id,
-
-    #Compte=>Compte.compte_id
-
+    #Service=>service.service_id {primary key},
+    #Compte=>Compte.compte_id {primary key}
 } 
 /* PROJECTION(JOINTURE(Remuneration, Service, Remuneration.service = Service.service_id), type) = 'C'
         
@@ -181,81 +147,59 @@ On note $user_id l'id de l'utilisateur pour lequel on considère les vues suivan
 
     R2 = JOINTURE(Communaute, R1 , Communaute.communaute_id = R1.communaute)
 
-    vCommunaute = PROJECTION(R2, R2.communaute_id, R2.nom, R2.desc, R2.date_creation, R1.validite)
+    vCommunaute = PROJECTION(R2, R2.communaute_id, R2.nom, R2.description, R2.date_creation, R2.validite)
 
 
 - VUE MESSAGE : permet de visualiser chaque message en ajoutant l'identifiant du message d'origine lorsque le message s'inscrit dans un fil historique. Par exemple si C → B → A alors on veut voir la référence à A lorsqu'on affiche C
 On note $message_id l'identifiant du message pour lequel on considère la vue.
 
     R0 = PROJECTION(RESTRICTION(Message, Message.message_id = $message_id), Message.content)
-
     R1 = RESTRICTION(Reference, Reference.referenceur = $message_id)
-
     IF R1 == EMPTYSET 
 
-    reference = NULL
+        reference = NULL
 
     ELSE
 
-    TANT QUE R1 <> EMPTYSET
+        TANT QUE R1 <> EMPTYSET
 
-    reference = PROJECTION(R1, R1.reference)
+        reference = PROJECTION(R1, R1.reference)
 
-    R1 = RESTRICTION(Reference, Reference.referenceur = reference)
+        R1 = RESTRICTION(Reference, Reference.referenceur = reference)
 
-    vMessage = UNION(R0, reference)
+        vMessage = UNION(R0, reference)
 
   
 - VUE PROCHE : permet de visualiser les communautés et personnes proches de chaque personne et communauté (à une distance inférieure à 1km)
 On note $communaute_id l'identifiant de la communaute pour laquelle on considère la vue proche.
 On note $personne_id l'identifiant de la personne pour laquelle on considère la vue proche.
-
     /* 1 seconde d'arc = 30,92 m 
-
     1 seconde d'arc = 1/60
-
     32,341526 seconde d'arc = 1km
-
     32,341526/60 = 0,53903
-
     Dans une distance inférieure à 1km si +/- 0,53902 
-
     */
 
-    R0 = RESTRICTION(Personne, Personne.user_id = $personne_id)
-    OU
-    R0 = RESTRICTION(Communauté, Communauté.communauté_id = $communaute_id)
-
+    R0 = RESTRICTION(Personne, Utilisateur.user_id = $personne_id)
     R1 = PROJECTION(Personne, Personne.user_id, Personne.nom, Personne.prenom, long_diff = Personne.longitude - R0.longitude, lat_diff = Personne.latitude - R0.latitude)
-
     R2 = PROJECTION(Communauté, Communaute.communaute_id, nom_communaute = Communaute.nom, Communaute.description, long_diff = Communaute.longitude - R0.longitude, lat_diff = Personne.latitude - R0.latitude)
-
     R3 = RESTRICTION(R1, R1.long_diff <= 0,539025, R1.lat_diff <= 0,53903)
-
     R4 = RESTRICTION(R2, R2.long_diff <= 0,539025, R2.lat_diff <= 0,53903)
-
     R5 = UNION(R3, R4)
-
     vProche = PROJECTION(R5, R5.communaute_id, R5.nom_communaute, R5.description, R5.user_id, R5.nom, R5.prenom)
 
 
 Vue service Commercialisé :
 
     R1 = RESTRICTION(Service, service.type='AC')
-
     vServiceC = PROJECTION(R1, Service.id, Service.nom, Service.description, Service.date_publication, Service.montant)
-
 
 Vue service avec contre-partie :
 
     R1 = RESTRICTION(Service, Service.type = 'CP' AND Service.desc_contre_partie NOT NULL)
-
     R2 = PROJECTION(R1, R1.service_id, R1.nom, R1.description, R1.date_publication, R1.desc_contre_partie)
-
     R3 = RESTRICTION(Service, Service.type = 'CP' AND Service.contre_partie NOT NULL)
-
     R4 = JOINTURE(Service, R3, Service.service_id = R3.service_id)
-
     R5 = PROJECTION(R4, service_id = R4.Service.service_id, nom = R4.Service.nom, description = R4.Service.description, date_publication = Service.date_publication, cp_service_id = R4.R3.service_id, cp_nom = R4.R3.nom, cp_description = R4.R3.description, cp_date_publication = R4.R3.date_publication)
 
     vServiceCP = UNION(R2,R5)
@@ -263,5 +207,5 @@ Vue service avec contre-partie :
 Vue service sans contre-partie :
 
     R1 = RESTRICTION(Service, service.type = 'SC')
-
     R2 = PROJECTION(R1, Service.service_id, Service.nom, Service.description, Service.date_publication)
+
