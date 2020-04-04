@@ -54,15 +54,6 @@ Opposition {
      PRIMARY KEY(detracteur, declarant, communaute)
 }
 
-    /* (declarationappartenance.personne = detracteur and declarationappartenance.communaute= communaute
-
-    AND declarationappartenance.validite is not NULL)
-
-    AND (declarationappartenance.personne = declarant and declarationappartenance.communaute = communaute)
-
-    */
-
-
 Lien (
     Emetteur :
 
