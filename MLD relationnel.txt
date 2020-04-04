@@ -6,9 +6,7 @@ Personne (
     prenom : string {not null},
     nom : string {not null},
     naissance : date,
-    salt : string {not null},
-    iteration : integer {iteration > 0, not null},
-    mdp : string {not null},
+    hash_mdp : string {not null},
     longitude : float {longitude >= 0, longitude <= 360}
     latitude : float {latitude >= 0, latitude <= 360}
     zoom : int {zoom >=0, zoom <= 18}

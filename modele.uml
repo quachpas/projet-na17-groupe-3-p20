@@ -20,6 +20,7 @@ class Communauté {
     nom : string {not null}
     description : string
     date_creation : date
+    localisation : Coordonnées géographiques
 }
 class Personne {
     username : string {unique, not null}
@@ -29,9 +30,7 @@ class Personne {
     email : string 
     localisation : Coordonnées géographiques
     lien_openstreetmap(Coordonnées géographiques) : URL
-    sel : string {not null}
-    iteration : integer {iteration > 0}
-    mot_de_passe : string {not null}
+    hash_mdp : string {not null}
     âge(): integer {âge > 0}
 }
 class Compte {
