@@ -105,6 +105,7 @@ Les personnes et les communautés possèdent éventuellement des comptes en Ğ1.
 > Le choix de la clé artificielle correspond à des critères d'extensibilité et de performances, similaires au choix d'utiliser une clé artificielle pour un utilisateur. On veut par exemple se laisser la possibilité de renommer une communauté. Ce n'est pas possible si le nom d'une communauté est immuable.
 2. Une communauté est muni d'un nom. Deux communautés ne pourront donc pas avoir le même nom.
 3. On enregistrera la date de création d'une communauté.
+4. Une communauté peut choisir de se localiser. 
 #### Droits et restrictions
 1. Toute communauté pourra déclarer un lien unidirectionnel avec une autre communauté.
 2. L'administration d'une communauté est déléguée à tous les membres de la communauté. Ils ont tous les mêmes droits et accès.
