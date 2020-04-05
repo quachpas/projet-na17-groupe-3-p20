@@ -21,46 +21,424 @@
         
     </head>
     <body class="vscode-light">
-        <h1 id="note-de-clarification-du-reseau-resilience">Note de clarification du reseau Resilience</h1>
+        <ul>
+<li><a href="#note-de-clarification-du-reseau-resilience">Note de clarification du reseau Resilience</a>
+<ul>
+<li><a href="#feedback">Feedback</a></li>
+<li><a href="#avant-propos">Avant-propos</a>
+<ul>
+<li><a href="#cycle-de-vie-des-donn%c3%a9es">Cycle de vie des données</a></li>
+<li><a href="#respect-du-rgpd">Respect du RGPD</a></li>
+</ul>
+</li>
+<li><a href="#communaut%c3%a9s-et-personnes">Communautés et personnes</a>
+<ul>
+<li><a href="#personne-utilisateur">Personne (Utilisateur)</a>
+<ul>
+<li><a href="#attributs">Attributs</a></li>
+<li><a href="#m%c3%a9thodes">Méthodes</a></li>
+<li><a href="#droits-et-restrictions">Droits et restrictions</a></li>
+<li><a href="#remarques-additionnelles">Remarques additionnelles</a></li>
+</ul>
+</li>
+<li><a href="#communaut%c3%a9s">Communautés</a>
+<ul>
+<li><a href="#attributs-1">Attributs</a></li>
+<li><a href="#droits-et-restrictions-1">Droits et restrictions</a></li>
+<li><a href="#remarques-additionnelles-1">Remarques additionnelles</a></li>
+</ul>
+</li>
+<li><a href="#d%c3%a9claration-dappartenance-%c3%a0-une-communaut%c3%a9">Déclaration d'appartenance à une communauté</a>
+<ul>
+<li><a href="#droits-et-restrictions-2">Droits et restrictions</a></li>
+<li><a href="#remarques-additionnelles-2">Remarques additionnelles</a></li>
+</ul>
+</li>
+<li><a href="#d%c3%a9claration-de-lien">Déclaration de lien</a>
+<ul>
+<li><a href="#attributs-2">Attributs</a></li>
+<li><a href="#droits-et-restrictions-3">Droits et restrictions</a></li>
+<li><a href="#remarques-additionnelles-3">Remarques additionnelles</a></li>
+</ul>
+</li>
+<li><a href="#vue-communaut%c3%a9">Vue communauté</a></li>
+</ul>
+</li>
+<li><a href="#services">Services</a>
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#attributs-3">Attributs</a></li>
+<li><a href="#droits-et-restrictions-4">Droits et restrictions</a></li>
+<li><a href="#services-commercialis%c3%a9">Services commercialisé</a></li>
+<li><a href="#service-avec-contre-partie">Service avec contre-partie</a></li>
+<li><a href="#service-sans-contre-partie">Service sans contre-partie</a></li>
+<li><a href="#remarques-additionnelles-4">Remarques additionnelles</a></li>
+</ul>
+</li>
+<li><a href="#savoir-faire">Savoir-faire</a>
+<ul>
+<li><a href="#attributs-4">Attributs</a></li>
+<li><a href="#droits-et-restrictions-5">Droits et restrictions</a></li>
+<li><a href="#remarques-additionnelles-5">Remarques additionnelles</a></li>
+</ul>
+</li>
+<li><a href="#transactions">Transactions</a></li>
+<li><a href="#comptes">Comptes</a>
+<ul>
+<li><a href="#attributs-5">Attributs</a></li>
+<li><a href="#droits-et-restrictions-6">Droits et restrictions</a></li>
+</ul>
+</li>
+<li><a href="#transactions-1">Transactions</a></li>
+<li><a href="#syst%c3%a8me-de-messagerie">Système de messagerie</a>
+<ul>
+<li><a href="#conversation">Conversation</a>
+<ul>
+<li><a href="#attributs-6">Attributs</a></li>
+<li><a href="#droits-et-restrictions-7">Droits et restrictions</a></li>
+</ul>
+</li>
+<li><a href="#messages">Messages</a>
+<ul>
+<li><a href="#attributs-7">Attributs</a></li>
+<li><a href="#droits-et-restrictions-8">Droits et restrictions</a></li>
+</ul>
+</li>
+<li><a href="#vue-message">Vue message</a></li>
+<li><a href="#remarques-additionnelles-6">Remarques additionnelles</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="note-de-clarification-du-reseau-resilience">Note de clarification du reseau Resilience</h1>
+<h2 id="feedback">Feedback</h2>
+<ul>
+<li>Vous avez fait un travail intéressant d'analyse, mais la présentation n'est pas très claire. Repartez plutôt d'une liste d'objets pour organiser ensuite vos hypothèses.</li>
+<li>On veut plutôt pouvoir utiliser la NDC pour faire notre UML sans avoir à se reporter à nouveau au CDC (ajoutez vos noms dans votre README)</li>
+</ul>
 <h2 id="avant-propos">Avant-propos</h2>
-<p>Cette NDC ne réexplique pas tout le sujet. Se référer au <a href="README.md">Readme</a> pour plus d'informations.</p>
-<h2 id="analyse-des-besoins-et-clarification">Analyse des besoins et clarification</h2>
+<p>Le réseau Résilience est composé de plusieurs parties :</p>
+<ul>
+<li>les communautés et les personnes,</li>
+<li>les services,</li>
+<li>les savoir-faire,</li>
+<li>les transactions (transactions et comptes),</li>
+<li>la messagerie.
+On clarifiera successivement ces différentes parties de façon explicite, en détaillant les droits et les restrictions qui seront appliquées. Nous rajouterons également des élements pour résoudre les problèmes éventuels.</li>
+</ul>
+<h3 id="cycle-de-vie-des-donn%c3%a9es">Cycle de vie des données</h3>
 <ol>
-<li>On veut établir un <strong>réseau</strong> d'entraide entre des personnes et des communautés.</li>
-<li>Toute personne pourra sans restriction créer des communautés.</li>
-<li>Toute personne peut déclarer faire partie de communautés, ou avoir des liens avec d'autres personnes. Ces déclarations sont unidirectionnelles. Une personne pourra faire partie d'autant de communautés et avoir autant de liens qu'elle le souhaite.
-Ces déclarations sont obligatoirement faites par la personne elle-même. Une autre personne ne peut pas &quot;ajouter&quot; une personne à une communauté.</li>
-<li>L'administration d'une communauté est déléguée à tous les membres de la communauté. Ils ont tous les mêmes droits et accès.</li>
-<li>Les membres d'une communauté peuvent s'opposer à la déclaration d'appartenance d'une personne autre qu'eux-même. Si plus de la moitié des membres s'oppose à sa présence, sa déclaration d'appartenance n'est plus valide. En aucun cas, une personne ne pourra décider du vote d'opposition d'une autre personne.</li>
-<li>L'ajout de savoir-faire est géré par l'ensemble des membres de Résilience. Chacun peut en rajouter. Une personne ou une communauté peut déclarer posséder un savoir-faire. Une personne ne peut déclarer un savoir-faire que pour elle-même, ou pour les communautés auxquelles elle appartient.</li>
-<li>Les services peuvent être proposés par n'importe quelle personne. Les services sont proposés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1. Les personnes et les comptes possèdent éventuellement des comptes en Ğ1. On devra stocker leurs clés publiques.</li>
-<li>Les personnes et communautés peuvent s'échanger des messages. Un message est la propriété intégrale de son expéditeur. Il s'adresse à un expéditeur et peut faire référence à un autre message.</li>
-<li>Les personnes peuvent se localiser avec des coordonnées géographiques (longitude, latitude). On pourra produire un lien sur <a href="http://openstreetmap.org">openstreetmap.org</a>. Exemple : <a href="https://www.openstreetmap.org/#map=17/49.41957/2.82243">https://www.openstreetmap.org/#map=17/49.41957/2.82243</a> (où 17 est ici le niveau de zoom).</li>
+<li>Selon les règlementations légales françaises, s'il devenait pertinent de les appliquer pour certaines de nos données, il faudra archiver ces données et les conserver pour une durée légale fixée.</li>
+<li>Les données non relatives à des données personnelles, qui sont supprimmées conceptuellement par les actions de l'utilisateur seront supprimés définitivement et immédiatement de la base de données. Aucun archivage ne sera effectué.</li>
 </ol>
-<h2 id="choix-effectu%c3%a9s">Choix effectués</h2>
+<h3 id="respect-du-rgpd">Respect du RGPD</h3>
 <ol>
-<li>Une communauté ne peut pas exister sans membre. Il en faut au minimum un : celui qui la crée. Une communauté sans membre n'existe donc pas. Si le dernier membre quitte la communauté, toutes ses données associées seront supprimées.</li>
-<li>On considèrera les coordonées géographiques comme un type de données à part comprenant la latitude, longitude et le zoom pour obtenir un lien.</li>
-<li>Les savoir-faire peuvent être possédés sans limites. Une personne et/ou une communauté peut posséder autant de savoir-faire qu'ils le souhaitent. Il n'y aura aucune vérification de légitimité.</li>
-<li>Les liens entre communautés, entre personnes, et les déclarations d'appartenance entre une personne et une communauté sont uniques.</li>
-<li>La déclaration d'appartenance d'un membre à une communauté est actualisée à chaque fois que l'effectif de la communauté varie, c'est-à-dire quand un membre quitte une communauté ou qu'un nouveau membre rejoint la communauté.</li>
-<li>On considère le critère d'opposition comme suit : pour qu'un membre soit exclu d'une communauté, il faut que la majorité du reste de la communauté s'oppose à sa déclaration d'appartenance. On passe à la majorité quand on atteint la partie entière su</li>
-<li>périeure de la moitié de l'effectif, moins un.</li>
-<li>Dès lors que la déclaration d'appartenance est invalide, la personne est exclue mais la relation entre personne et communauté est conservée. Ceci permet de gérer l'abus de déclarations d'appartenance à répétition.</li>
-<li>Un effet &quot;domino&quot; sera accepté. Par exemple, dans une communauté de 8 personnes si une personne A avait 4 voix d'oppositions contre elle et que la communauté perd un membre (qui ne s'opposait pas), alors A sera éjecté de la communauté, et ainsi de suite tant que la règle est applicable. Par définition, cet effet domino a une fin.</li>
-<li>Par défaut, un nouveau membre d'une communauté ne s'oppose pas à une déclaration d'appartenance valide. Par contre, il s'oppose automatiquement à une déclaration d'appartenance invalide. Ainsi, on se protège de l'effet &quot;domino&quot; inverse. C'est-à-dire que les déclarations d'appartenances invalides ne redeviennent pas valides en chaîne suite à l'arrivée d'un nouveau membre.</li>
-<li>Un compte ne peut appartenir qu'à une communauté ou à une personne, il n'y a pas de compte partagé entre deux personnes. On peut associer à une communauté ou à un membre plusieurs comptes à la fois.</li>
-<li>Pour faciliter l'échange de services et promouvoir l'interaction sociale, on considèrera qu'un service peut être proposé, ou demandé. Les utilisateurs ne sont pas dépendants de l'offre, mais explicitent également la demande. De même, la palette d'offres peut inspirer les utilisateurs quant aux compétences qu'ils estiment posséder.</li>
-<li>Au niveau de l'implémentation, un service avec contre-partie peut être lié avec un service sans contre-partie, un service commercialisé, ou un autre service avec contre-partie dans la mesure où tous ces services sont identifiés. Un service identifié est un service qui a été enregistré dans notre BDD. Un service (contre partie) non identifié(e) s'exprimerait sur le mode descriptif, par exemple pourrait y figurer plusieurs propositions. L'utilisateur serait alors soumis à un choix : par exemple, jardinage ou cours de danse. On le considèrera comme un champ de texte personalisé.
-Concrètement, un utilisateur crée un service A, dit avec contre-partie. La contre-partie associée est alors soit identifiée, soit non identifiée. On dit d'une contre-partie qu'elle est identifiée si l'utilisateur renseigne dans la base de données le service qu'il propose en échange. La contre-partie est non identifiée quand l'utilisateur décrit le(s) type(s) de service au(x)quel(s) il aimerait répondre (généralement correlé(s) aux savoir-faire qu'il possède).</li>
+<li>La durée de validité du consentement (au sens du RGPD) est porté à 13 mois maximum. Au-delà de ce délai, l'application devra de nouveau recueillir le consentement.</li>
+<li>Par conséquent, la durée de vie des cookies et autres traceurs doit être limitée à 13 mois.</li>
+<li>Le droit à l'oubli spécifie qu'au bout de 36 mois d'inactivité, les données personnelles d'un utilisateur doivent être supprimés de notre base de données. La suppression est définitive et ne correspond pas à un archivage des données.</li>
+<li>Pour les utilisateurs âgés de moins de 15 ans, le consentement conjoint du mineur et du/des titulaires de l'autorité parentale devra être recueilli.</li>
+<li>Pour les mineurs âgés de 15 ans et plus, comme le précise l'article 7-1 de la loi relative à la protection des données, le mineur peut consentir seul au traitement des données à caractère personnel.</li>
+<li>Les données personnelles d'un utilisateur doivent être à tout moment, rectifiable, effaçables, et restituables. Le délai pour effectuer ces actions suite à la demande est un mois.</li>
+</ol>
+<h2 id="communaut%c3%a9s-et-personnes">Communautés et personnes</h2>
+<p>Les personnes et les communautés possèdent éventuellement des comptes en Ğ1. On devra stocker leurs clés publiques.</p>
+<h3 id="personne-utilisateur">Personne (Utilisateur)</h3>
+<h4 id="attributs">Attributs</h4>
+<ol>
+<li>Toute personne sera identifiée par une clé artificielle.</li>
+</ol>
+<blockquote>
+<p>Le choix de la clé artificielle relève de critères de performances et d'extensibilité. Il sera plus facile d'effectuer des changements si l'utilisateur est identifiée par une clé primaire séquentielle. Il est également plus rapide de chercher un contenu léger (un octet), qu'une chaîne de caractères.</p>
+</blockquote>
+<ol start="2">
+<li>Un utilisateur devra spécifier un nom d'utilisateur. Deux personnes ne pourront pas choisir le même nom d'utilisateur.</li>
+<li>Elle devra préciser son nom, prénom. Elle peut définir des détails divers liés à sa personne (âge, date de naissance, etc.).</li>
+<li>S'il souhaite être capable de réinitialiser son mot de passe, l'utilisateur devra obligatoirement renseigner un email.</li>
+<li>Les personnes peuvent se localiser avec des coordonnées géographiques définies par la longitude et la latitude.</li>
+</ol>
+<h4 id="m%c3%a9thodes">Méthodes</h4>
+<ol>
+<li>Concernant la localisation, on pourra produire un lien sur <a href="http://openstreetmap.org">openstreetmap.org</a>. Exemple : <a href="https://www.openstreetmap.org/#map=17/49.41957/2.82243">https://www.openstreetmap.org/#map=17/49.41957/2.82243</a> (où 17 est ici le niveau de zoom).</li>
+</ol>
+<blockquote>
+<p>Le niveau de zoom est compris entre 0 et 18  : <a href="https://wiki.openstreetmap.org/wiki/FR:Zoom_levels">https://wiki.openstreetmap.org/wiki/FR:Zoom_levels</a>.</p>
+</blockquote>
+<h4 id="droits-et-restrictions">Droits et restrictions</h4>
+<ol>
+<li>Toute personne pourra créer sans restrictions des communautés.</li>
+<li>Tout personne peut déclarer sans restrictions (unidirectionnellement)
+<ol>
+<li>faire partie d'une communauté,</li>
+<li>avoir un lien avec d'autres personnes.</li>
+</ol>
+</li>
+<li>Les déclarations sont obligatoirements exécutées par l'utilisateur lui-même. Une personne B ne peut pas réaliser une déclaration pour une personne A.</li>
+</ol>
+<h4 id="remarques-additionnelles">Remarques additionnelles</h4>
+<ol>
+<li>On considèrera les coordonées géographiques comme un type de données à part comprenant la latitude, longitude et le zoom pour obtenir un lien. La latitude et la longitude seront obligatoirement spécifiés. Le zoom est facultatif.</li>
+<li>On implémentera si possible une forte sécurité au niveau du mot de passe utilisateur, c'est-à-dire qu'on l'encryptera.
+<ol>
+<li>On se munira d'un sel pour contrecarrer l'utilisation de <em>rainbow tables</em>. Le sel devra être généré en utilisant un <a href="https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator">CSPRNG</a>. Le sel est unique pour chaque utilisateur et son mot de passe. Il sera regénéré si l'utilisateur change de mot de passe.</li>
+<li>On utilisera une fonction d'étirement de clé pour se protéger contre les attaques par force brute. Par exemple, PBKDF2.</li>
+<li>Le mot de passe sera enregistré encrypté dans la base de données.</li>
+<li>Le processus de connexion se déroulera au mieux ainsi :
+<ol>
+<li>L'utilisateur rentre son mot de passe côté client. Le mot de passe naturel est envoyé au serveur via HTTPS (sécurisé).</li>
+<li>Le serveur encrypte le mot de passe en utilisant le sel et le nombre d'itérations et le compare au mot de passe encrypté sur le serveur.</li>
+<li>Le serveur valide ou non la connexion du client.</li>
+</ol>
+</li>
+<li>La connexion persistente nécessiterait de stocker en base de données un cookie, et des informations supplémentaires de connexion, telle que l'adresse I.P. utilisée lors de la connexion, etc. Elle représenterait une table séparée de la table utilisateur.</li>
+</ol>
+</li>
+</ol>
+<h3 id="communaut%c3%a9s">Communautés</h3>
+<h4 id="attributs-1">Attributs</h4>
+<ol>
+<li>Une communauté sera identifiée par une clé artificielle.</li>
+</ol>
+<blockquote>
+<p>Le choix de la clé artificielle correspond à des critères d'extensibilité et de performances, similaires au choix d'utiliser une clé artificielle pour un utilisateur. On veut par exemple se laisser la possibilité de renommer une communauté. Ce n'est pas possible si le nom d'une communauté est immuable.</p>
+</blockquote>
+<ol start="2">
+<li>Une communauté est muni d'un nom. Deux communautés ne pourront donc pas avoir le même nom.</li>
+<li>On enregistrera la date de création d'une communauté.</li>
+<li>Une communauté peut choisir de se localiser.</li>
+</ol>
+<h4 id="droits-et-restrictions-1">Droits et restrictions</h4>
+<ol>
+<li>Toute communauté pourra déclarer un lien unidirectionnel avec une autre communauté.</li>
+<li>L'administration d'une communauté est déléguée à tous les membres de la communauté. Ils ont tous les mêmes droits et accès.</li>
+</ol>
+<h4 id="remarques-additionnelles-1">Remarques additionnelles</h4>
+<ol>
+<li>Une communauté ne peut pas exister sans membre. Il en faut au minimum un. Le premier membre d'une communauté sera donc celui qui l'a crée.</li>
+<li>Une communauté sans membre n'existe donc pas. Si le dernier membre quitte la communauté, toutes ses données associées seront supprimées immédiatement.</li>
+<li>On avertira éventuellement le dernier membre d'une communauté souhaitant la quitter des conséquences de son action.</li>
+</ol>
+<h3 id="d%c3%a9claration-dappartenance-%c3%a0-une-communaut%c3%a9">Déclaration d'appartenance à une communauté</h3>
+<h4 id="droits-et-restrictions-2">Droits et restrictions</h4>
+<ol>
+<li>Les déclarations d'appartenance entre une personne et une communauté sont uniques.</li>
+<li>Les membres d'une communauté peuvent s'opposer à la déclaration d'appartenance d'une personne autre qu'eux-même. Si plus de la moitié des membres s'oppose à sa présence, sa déclaration d'appartenance n'est plus valide. Négativement, si une personne ne fait plus partie d'une communauté, son vote d'opposition n'est plus valide (il sera supprimé).</li>
+<li>En aucun cas, une personne ne pourra décider du vote d'opposition d'une autre personne.</li>
+</ol>
+<h4 id="remarques-additionnelles-2">Remarques additionnelles</h4>
+<ol>
+<li>La déclaration d'appartenance d'un membre à une communauté est actualisée à chaque fois que l'effectif de la communauté varie, c'est-à-dire quand un membre quitte (de gré ou de force) une communauté ou qu'un nouveau membre rejoint la communauté.</li>
+<li>On considère le critère d'opposition comme suit : pour qu'un membre soit exclu d'une communauté, il faut que la majorité du reste de la communauté s'oppose à sa déclaration d'appartenance. On passe à la majorité quand on atteint la partie entière supérieure de la moitié de l'effectif moins un.</li>
+</ol>
+<blockquote>
+<p>Critère : Ent((effectif-1)/2)</p>
+</blockquote>
+<ol start="3">
+<li>Dès lors que la déclaration d'appartenance est invalide, la personne est exclue mais la relation entre personne et communauté est conservée.</li>
+</ol>
+<blockquote>
+<p>Ceci permet de gérer l'abus de déclarations d'appartenance.</p>
+</blockquote>
+<ol start="4">
+<li>Un effet &quot;domino&quot; négatif sera accepté. Par exemple, dans une communauté de 8 personnes (le palier est donc à Ent((8-1)/2)=Ent(3,5)=4), si une personne A avait 3 voix d'oppositions contre elle et que la communauté perd un membre (qui ne s'opposait pas), alors A sera éjecté de la communauté car Ent((7-1)/2)=3.</li>
+<li>L'ordre d'invalidation est significatif dans l'application de l'effet domino négatif. Dans un cas plus complexe, où les oppositions &quot;se croisent&quot;, c'est-à-dire que les membres s'opposent mutuellement, on choisira toujours d'appliquer la mise à jour de l'appartenance dans l'ordre croissant d'ancienneté. Les membres les plus récents seront donc exclus en premier.</li>
+<li>Par exemple, on peut se trouver dans le cas où deux membres s'opposent mutuellement. On y arrive à cause de l'effet domino négatif. Quoi qu'il en soit, le critère de sélection sera donc l'ancienneté, et le membre le plus récent sera exclu de la communauté.</li>
+</ol>
+<blockquote>
+<p>Par définition, cet effet domino a une fin quand il ne reste plus qu'un membre. Il ne peut effectivement pas s'opposer lui-même.</p>
+</blockquote>
+<ol start="7">
+<li>Par défaut, un nouveau membre d'une communauté ne s'oppose pas à une déclaration d'appartenance valide. Par contre, il s'oppose automatiquement à une déclaration d'appartenance invalide.</li>
+</ol>
+<blockquote>
+<p>On souhaite se protéger d'un effet domino positif. C'est-à-dire que les déclarations d'appartenances invalides ne redeviennent pas valides en chaîne suite à l'arrivée d'un nouveau membre.</p>
+</blockquote>
+<h3 id="d%c3%a9claration-de-lien">Déclaration de lien</h3>
+<h4 id="attributs-2">Attributs</h4>
+<ol>
+<li>On rappelle que les liens sont considérés comme unidirectionnels, c'est à dire d'un émetteur à un récepteur.</li>
+<li>Les liens comportent obligatoirement une description.</li>
+</ol>
+<h4 id="droits-et-restrictions-3">Droits et restrictions</h4>
+<ol>
+<li>Les liens entre communautés ou entre personnes sont uniques. Il ne peut exister qu'un lien entre deux entités distinctes de même type.</li>
+<li>Les déclarations de liens peuvent uniquement se réaliser de personne à personne ou de communauté à communauté distinctes. La gestion des liens d'une communauté est laissé à la discrétion de ses membres.</li>
+<li>L'entité réceptrice de la déclaration de lien peut décider de l'accepter ou non.</li>
+</ol>
+<blockquote>
+<p>Malgré qu'on souhaite que le lien soit unidirectionnel, on accordera au récepteur de la déclaration de lien un droit de regard dans le but de minimiser les abus. On ne souhaite pas qu'un utilisateur déclare des liens qui n'existent pas.</p>
+</blockquote>
+<ol start="4">
+<li>Si une déclaration de lien est déclarée invalide, l'émetteur de la déclaration de lien ne pourra en aucun cas en émettre une autre.</li>
+</ol>
+<blockquote>
+<p>Cette restriction permet de protéger de l'abus des déclarations de lien.</p>
+</blockquote>
+<ol start="5">
+<li>Si une déclaration de lien est invalide, l'émetteur de la déclaration de lien peut modifier la description.</li>
+</ol>
+<blockquote>
+<p>On laissera cependant la possibilité à l'émetteur de modifier sa déclaration de lien, si elle est utilisée avec de bonnes intentions.</p>
+</blockquote>
+<ol start="6">
+<li>Si une déclaration de lien est invalide, le récepteur de la déclaration peut à tout moment choisir de modifier son statut et de la valider.</li>
+</ol>
+<blockquote>
+<p>Dans la continuité du droit n°4, si la description est modifiée, le récepteur doit être capable d'accepter la déclaration.</p>
+</blockquote>
+<ol start="7">
+<li>Si une déclaration de lien est valide, l'émetteur de la déclaration peut à tout moment choisir de modifier son statut et de l'invalider.</li>
+<li>Si une déclaration de lien est valide, le récepteur ne peut pas modifier son statut.</li>
+</ol>
+<blockquote>
+<p>Le lien est unidirectionnel. Un lien de A vers B déclare publiquement que A est lié à B suivant la description.</p>
+</blockquote>
+<ol start="9">
+<li>Si une déclaration de lien est valide, la description du lien est figée.</li>
+</ol>
+<blockquote>
+<p>Si l'émetteur souhaite modifier le lien, il doit d'abord l'invalider.</p>
+</blockquote>
+<h4 id="remarques-additionnelles-3">Remarques additionnelles</h4>
+<ol>
+<li>Par défaut, aucun lien n'existe entre les entités de Résilience.</li>
+<li>Si la déclaration de lien est validée, elle sera visible publiquement sur le profil de l'émetteur. Elle n'est pas visible sur le public du récepteur.</li>
+<li>Si la déclaration de lien est invalidée, on garde le status quo. Aucun lien n'est affiché.</li>
+</ol>
+<h3 id="vue-communaut%c3%a9">Vue communauté</h3>
+<p>Elle permet à chaque personne d'avoir la liste des communautés auxquelles il déclare appartenir avec un booléen qui détermine si la personne est exclue ou non.</p>
+<h2 id="services">Services</h2>
+<h3 id="description">Description</h3>
+<p>Pour faciliter l'échange de services et promouvoir l'interaction sociale, on considèrera qu'un service peut être proposé, ou demandé. Les utilisateurs ne sont pas dépendants de l'offre, mais explicitent également la demande. De même, la palette d'offres peut inspirer les utilisateurs quant aux compétences qu'ils estiment posséder.
+Le service est une classe abstraite.</p>
+<h3 id="attributs-3">Attributs</h3>
+<ol>
+<li>Le service possèdera un nom, une description, une date de publication, ou une contre-partie définie plus bas.</li>
+<li>On enregistrera l'auteur du service. Il peut être une communauté, ou une personne.</li>
+<li>Un service sera identifié par une clé artificielle, comme il est très difficile de trouver une clé naturelle. On aurait pu proposer d'identifier le service avec le nom, l'auteur, et la date de publication.</li>
+</ol>
+<h3 id="droits-et-restrictions-4">Droits et restrictions</h3>
+<ol>
+<li>Les services peuvent être publiés par n'importe quelle personne.</li>
+<li>Les services ne peuvent être modifiés que par leur auteur.</li>
+<li>Les services sont publiés soit sans-contre partie, soit avec contre-partie, soit commercialement contre une somme en Ğ1.</li>
+<li>Les services peuvent être réalisés par autant de personnes que souhaite l'auteur.</li>
+<li>Un service peut être réalisé par une communauté, mais elle doit préciser le nombre de membres qui réalise le service, celui-ci ne doit pas excéder le nombre fixé par l'auteur du service.</li>
+<li>Les individus exclus d'une communauté A ne sont pas restreints de réaliser un service pour la communauté A.</li>
+<li>Un service ne peut être que d'un type à la fois.</li>
+<li>Un service ne peut être la contre-partie que d'un unique service avec contre-partie.</li>
+</ol>
+<blockquote>
+<p>C'est-à-dire qu'on ne pourra par exemple proposer la réalisation d'un service en contre-partie d'un autre qu'une fois.</p>
+</blockquote>
+<h3 id="services-commercialis%c3%a9">Services commercialisé</h3>
+<ol>
+<li>Un montant sera obligatoirement précisé.</li>
+<li>Une personne ne pourra accéder aux services avec contre-partie commerciale si elle n'a pas de compte en Ğ1.</li>
+<li>La répartition de la rémunération sera fait de manière égale entre tous les participants au service.</li>
+<li>On vérifiera que le solde du compte de l'auteur soit suffisant, c'est-à-dire supérieur au montant. Si le montant est insuffisant, il est techniquement possible de proposer à l'auteur d'attendre X nombre de jours, calculé en fonction de la dividende universelle.</li>
+</ol>
+<h3 id="service-avec-contre-partie">Service avec contre-partie</h3>
+<ol>
+<li>Le service avec contre-partie peut se baser sur le troc. La contre-partie sera éventuellement décrite textuellement.</li>
+<li>La contre-partie d'un service peut-être la réalisation d'un autre service.</li>
+</ol>
+<h3 id="service-sans-contre-partie">Service sans contre-partie</h3>
+<ol>
+<li>Le service est proposé/demandé sans rien en échange, il est entièrement bénévole.</li>
+</ol>
+<h3 id="remarques-additionnelles-4">Remarques additionnelles</h3>
+<ol>
 <li>Au niveau de l'implémentation, un service avec contre-partie peut être lié avec un service sans contre-partie, un service commercialisé, ou un autre service avec contre-partie dans la mesure où tous ces services sont identifiés. Un service identifié est un service qui a été enregistré dans notre BDD. Un service (contre partie) non identifié(e) s'exprimerait sur le mode descriptif, par exemple pourrait y figurer plusieurs propositions. L'utilisateur serait alors soumis à un choix : par exemple, jardinage ou cours de danse. On le considèrera comme un champ de texte personalisé.</li>
+<li>Concrètement, un utilisateur crée un service A, dit avec contre-partie. La contre-partie associée est alors soit identifiée, soit non identifiée. On dit d'une contre-partie qu'elle est identifiée si l'utilisateur renseigne dans la base de données le service qu'il propose en échange. La contre-partie est non identifiée quand l'utilisateur décrit le(s) type(s) de service au(x)quel(s) il aimerait répondre (généralement correlé(s) aux savoir-faire qu'il possède).</li>
+<li>Il est tout à fait possible que la contre-partie d'un service soit décrite comme une rémunération monétaire. Les utilisateurs sont libres de l'utilisation de Résilience. Même si ce type de service n'est pas censé être utilisé avec ces intentions en tête.</li>
+<li>Si un individu se porte candidat à la réalisation d'un service, cela fait office de déclaration d'honneur. On avertira le candidat s'il n'a pas les savoir-faire, ou s'il n'a pas le degré de maîtrise suffisant.</li>
+<li>Dans le cadre du projet, nous n'aborderons pas les conditions et ramifications légales de la mise en place d'un système/processus de validation/complétion d'un service. On peut imaginer se dédouanner de toute responsabilité à ce niveau-là, mais cela impliquerait une énorme baisse de confiance dans le réseau Résilience, qui serait mené par l'attitude la communauté. Nous aurions moins de contrôle sur les abus.</li>
+</ol>
+<h2 id="savoir-faire">Savoir-faire</h2>
+<h3 id="attributs-4">Attributs</h3>
+<ol>
+<li>Un savoir-faire est identifié par son nom. Deux savoir-faire ne peuvent pas avoir le même nom.</li>
+</ol>
+<h3 id="droits-et-restrictions-5">Droits et restrictions</h3>
+<ol>
+<li>L'ajout de savoir-faire est géré par l'ensemble des membres de Résilience. Chacun peut en rajouter.</li>
+<li>Une personne ou une communauté peut déclarer posséder un savoir-faire.</li>
+<li>Une personne ne peut déclarer un savoir-faire que pour elle-même, ou pour les communautés auxquelles elle appartient par extension à la règle d'administration des communautés.</li>
+<li>Une communauté n'est pas obligée qu'un membre possède un savoir-faire pour le déclarer.</li>
+<li>Les savoir-faire peuvent être possédés sans limites. Une personne et/ou une communauté peut posséder autant de savoir-faire qu'elle le souhaite.</li>
+</ol>
+<h3 id="remarques-additionnelles-5">Remarques additionnelles</h3>
+<ol>
+<li>Il n'y aura aucune vérification de légitimité.</li>
+<li>On implémentera une vérification suffisament solide pour éviter les erreurs utilisateurs du type création de deux savoir-faire avec un nom similaire. On se munira d'un correcteur orthographique.</li>
+<li>On pourra proposer une vue &quot;savoir-faire de la communauté&quot; qui recense tous les savoir-faire des membres d'une communauté. Cette vue n'est disponible qu'aux membres de la communauté.</li>
+</ol>
+<h2 id="transactions">Transactions</h2>
+<h2 id="comptes">Comptes</h2>
+<h3 id="attributs-5">Attributs</h3>
+<ol>
+<li>Un compte sera identifié par sa clé publique.</li>
+</ol>
+<h3 id="droits-et-restrictions-6">Droits et restrictions</h3>
+<ol>
+<li>Un compte ne peut appartenir qu'à une communauté ou à une personne. Il n'y a pas de compte partagé entre deux entités.</li>
+<li>On peut associer à une communauté ou à un membre plusieurs comptes à la fois.</li>
+</ol>
+<h2 id="transactions-1">Transactions</h2>
+<p>Les transactions n'apparaissent en somme pas dans la base de données, vu qu'elles seront présentes dans les noeuds.
+On pourra se munir de l'API de Césium pour prendre en charge les transactions. <a href="https://g1.duniter.fr/api/#/app/home">https://g1.duniter.fr/api/#/app/home</a>.</p>
+<h2 id="syst%c3%a8me-de-messagerie">Système de messagerie</h2>
+<p>Les personnes et communautés peuvent s'échanger des messages. L'échange de message peut se réaliser entre deux personnes, deux communautés, ou une communauté et une personne et inversement.</p>
+<blockquote>
+<p>Par soucis d'extensibilité, on s'efforcera de mettre en place des relations permettant une conversation de groupe.</p>
+</blockquote>
+<h3 id="conversation">Conversation</h3>
+<p>Chaque conversation correspond à un ensemble de messages entre deux entités. C'est un historique des messages entre deux entités. Il n'existe que s'il existe des messages entre deux entités.</p>
+<blockquote>
+<p>On se garde la possibilité d'étendre les conversations à plus de deux entités dans le futur.</p>
+</blockquote>
+<h4 id="attributs-6">Attributs</h4>
+<ol>
+<li>Une conversation sera identifiée par une clé artificielle séquentielle dans un soucis de performances et d'extensibilité.</li>
+<li>Une conversation contiendra l'id du dernier message envoyé. Il faudra le mettre à jour dynamiquement.</li>
+</ol>
+<blockquote>
+<p>On pourra éventuellement stocker la date et heure à laquelle un participant a lu les messages d'une conversation.</p>
+</blockquote>
+<h4 id="droits-et-restrictions-7">Droits et restrictions</h4>
+<ol>
+<li>Une conversation ne peut pas être supprimée intégralement par un seul des deux partis. Il faudra l'accord des deux partis, car les messages sont la propriété inntégrale de leurs expéditeurs.</li>
+<li>Un parti pourra choisir de supprimer uniquement tous les messages qu'il a envoyé.</li>
+</ol>
+<h3 id="messages">Messages</h3>
+<h4 id="attributs-7">Attributs</h4>
+<ol>
+<li>Un message est muni d'un contenu, et d'une date de création.</li>
+<li>Le message provient d'un expéditeur (utilisateur, ou communauté),</li>
+<li>On pourra faire référence à un autre message au sein d'une conversation.</li>
+<li>Un message sera identifié par une clé artificielle dans un soucis de performance et d'extensibilité.</li>
+</ol>
+<blockquote>
+<p>On aurait pu proposer d'identifier un message avec une clé naturelle telle que l'id de l'utilisateur, l'id de la conversation, et un timestamp du message.</p>
+</blockquote>
+<h4 id="droits-et-restrictions-8">Droits et restrictions</h4>
+<ol>
+<li>Un message peut être supprimé et/ou modifié par son expéditeur.</li>
+<li>Un message ne peut faire référence qu'à un seul autre message. Par contre, un message peut être référencé sans limites.</li>
+</ol>
+<h3 id="vue-message">Vue message</h3>
+<p>On proposera la vue message qui permet de visualiser chaque message en ajoutant l'identifiant du message d'origine lorsque le message s'inscrit dans un fil historique. Par exemple si C → B → A alors on veut voir la référence à A lorsqu'on affiche C.</p>
+<h3 id="remarques-additionnelles-6">Remarques additionnelles</h3>
+<ol>
+<li>Un message est la propriété intégrale de son expéditeur. Il constitue une donnée à caractère personnelle.</li>
 <li>Un utilisateur peut s'envoyer un message à lui-même. On pourra toujours trouver le message d'origine.</li>
 </ol>
-<h2 id="contraintes">Contraintes</h2>
-<ol>
-<li>Deux savoir-faire ne peuvent pas avoir le même nom. On implémentera une vérification suffisament solide pour éviter les erreurs utilisateurs. On se munira d'un correcteur orthographique.</li>
-<li>Une personne ne pourra accéder aux services avec contre-partie commerciale si elle n'a pas de compte en Ğ1.</li>
-<li>Un lien ne peut pas se rapporter à lui-même.</li>
+<blockquote>
+<p>La vue message trouvera forcément un message d'origine. Effectivement, il ne peut pas exister de cycle. Un message ne peut pas faire référence à une message qui aurait été envoyé après lui ...</p>
+</blockquote>
+<ol start="3">
+<li>Au niveau de l'implémentation, on aura trois relations : conversations, participants, et message. La table participants est une table d'association pour savoir qui participe à une conversation. Elle ne serait pas nécessaire si on se restreignait à un système de messagerie en deux entités uniquement. Cependant, comme dit plus haut, par soucis d'extensibilité, on souhaite se faciliter la tâche si on change cette restriction ultérieurement.</li>
 </ol>
 
     </body>
