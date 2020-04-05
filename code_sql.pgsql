@@ -1,5 +1,6 @@
 SET search_path TO resilience;
 /* INITIALISATION */
+CREATE SCHEMA IF NOT EXISTS resilience;
 DROP TYPE IF EXISTS type_user CASCADE;
 DROP TYPE IF EXISTS type_service CASCADE;
 DROP TYPE IF EXISTS genre_service CASCADE;
@@ -35,7 +36,7 @@ CREATE TABLE users(
     user_longitude NUMERIC (1000, 5) CHECK(user_longitude > -180.00000 AND user_longitude < 180.00000),
 	user_latitude NUMERIC (1000, 5) CHECK(user_latitude > -90.00000 AND user_latitude < 90.00000),
 	user_zoom INTEGER CHECK(user_zoom >= 0 AND user_zoom <= 18),
-	user_type type_user NOT NULL, 
+	user_type type_user NOT NULL,
 	PRIMARY KEY (user_id)
 );
 
@@ -91,7 +92,7 @@ CREATE TABLE users_skill(
     skill_holder INTEGER NOT NULL,
 	PRIMARY KEY (skill, skill_holder),
     FOREIGN KEY (skill) REFERENCES skill (skill_name),
-    FOREIGN KEY (skill_holder) REFERENCES users(user_id)  
+    FOREIGN KEY (skill_holder) REFERENCES users(user_id)
 );
 
 
@@ -123,7 +124,7 @@ CREATE TABLE messages (
     message_sender INTEGER NOT NULL,
     message_content VARCHAR NOT NULL,
 	PRIMARY KEY(message_id),
-    FOREIGN KEY (message_sender) REFERENCES users(user_id)   
+    FOREIGN KEY (message_sender) REFERENCES users(user_id)
 );
 
 CREATE TABLE conversation(
@@ -132,7 +133,7 @@ CREATE TABLE conversation(
     FOREIGN KEY (conversation_last_message) REFERENCES messages(message_id)
 );
 
-ALTER TABLE messages 
+ALTER TABLE messages
 ADD CONSTRAINT fk_message_conversation_conversation_id
 FOREIGN KEY (message_conversation) REFERENCES conversation(conversation_id);
 
@@ -141,7 +142,7 @@ CREATE TABLE conversation_participant(
     conversation INTEGER,
 	PRIMARY KEY (participant, conversation),
     FOREIGN KEY (participant) REFERENCES users(user_id),
-    FOREIGN KEY (conversation) REFERENCES conversation(conversation_id)    
+    FOREIGN KEY (conversation) REFERENCES conversation(conversation_id)
 );
 
 CREATE TABLE messages_reference(
@@ -149,7 +150,7 @@ CREATE TABLE messages_reference(
     referenced INTEGER,
 	PRIMARY KEY(referrer, referenced),
     FOREIGN KEY (referrer) REFERENCES messages(message_id),
-    FOREIGN KEY (referenced) REFERENCES messages(message_id)    
+    FOREIGN KEY (referenced) REFERENCES messages(message_id)
 );
 
 CREATE TABLE service(
@@ -172,39 +173,39 @@ CREATE TABLE service(
 
 CREATE OR REPLACE FUNCTION resilience.triggerService()
 RETURNS trigger LANGUAGE plpgsql
-AS 
+AS
 $BODY$
-BEGIN 
-IF (NEW.service_type = 'WC' 
-	AND NOT(((NEW.service_consideration IS NOT NULL 
+BEGIN
+IF (NEW.service_type = 'WC'
+	AND NOT(((NEW.service_consideration IS NOT NULL
 		  	 AND NEW.service_consideration_description IS NULL)
-		 OR (NEW.service_consideration IS NULL 
-			 AND NEW.service_consideration_description IS NOT NULL)) 
+		 OR (NEW.service_consideration IS NULL
+			 AND NEW.service_consideration_description IS NOT NULL))
 	AND NEW.service_sum IS NULL))
 THEN RAISE EXCEPTION '
-ErrorType WC : 
+ErrorType WC :
 Consideration description : %,
 Consideration (service_id) : %,
 Sum : %,
 ', NEW.service_consideration_description, NEW.service_consideration, NEW.service_sum;
 END IF;
-IF (NEW.service_type='C' 
-	AND (NEW.service_sum IS NULL 
-	OR NEW.service_consideration IS NOT NULL 
+IF (NEW.service_type='C'
+	AND (NEW.service_sum IS NULL
+	OR NEW.service_consideration IS NOT NULL
 	OR NEW.service_consideration_description IS NOT NULL))
 THEN RAISE EXCEPTION '
-ErrorType C : 
+ErrorType C :
 Consideration description : %,
 Consideration (service_id) : %,
 Sum : %,
 ', NEW.service_consideration_description, NEW.service_consideration, NEW.service_sum;
 END IF;
-IF (NEW.service_type = 'WOC' 
-	AND (NEW.service_sum IS NOT NULL 
-	OR NEW.service_consideration_description IS NOT NULL 
+IF (NEW.service_type = 'WOC'
+	AND (NEW.service_sum IS NOT NULL
+	OR NEW.service_consideration_description IS NOT NULL
 	OR NEW.service_consideration IS NOT NULL))
 THEN RAISE EXCEPTION '
-ErrorType WOC : 
+ErrorType WOC :
 Consideration description : %,
 Consideration (service_id) : %,
 Sum : %,
@@ -212,7 +213,7 @@ Sum : %,
 END IF;
 return NEW;
 END
-$BODY$;  
+$BODY$;
 CREATE TRIGGER checktype BEFORE INSERT ON service FOR EACH ROW
 EXECUTE PROCEDURE triggerService();
 
@@ -221,7 +222,7 @@ CREATE TABLE service_skills(
     service_id INTEGER,
 	PRIMARY KEY(skill, service_id),
     FOREIGN KEY (skill) REFERENCES skill(skill_name),
-    FOREIGN KEY (service_id) REFERENCES service(service_id)    
+    FOREIGN KEY (service_id) REFERENCES service(service_id)
 );
 
 CREATE TABLE service_doers(
@@ -229,10 +230,31 @@ CREATE TABLE service_doers(
     user_id INTEGER,
 	PRIMARY KEY (service_id, user_id),
     FOREIGN KEY (service_id) REFERENCES service(service_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)    
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 /* VUES */
+
+CREATE VIEW view_service_marketed AS
+    SELECT S.service_id, S.service_genre, S.service_name, S.service_description, S.service_author, S.service_publication_date
+    FROM service S
+    WHERE S.service_type='C';
+
+/*Comme stipulé dans la NDC, on  considère que l'utilisateur n'a encore statué sur aucune contrepartie si la description n'est pas nulle.
+Réciproquement, la contrepartie est dite définie si la description est nulle. Les informations liées à la contrepartie choisie sont alors stipulées.
+Cette condition est préalablement vérifiée par la requête TRIGGER service. */
+CREATE VIEW view_service_withconsideration AS
+SELECT S.service_id, S.service_genre, S.service_name, S.service_description,S.service_author, S.service_consideration_description,
+C.service_id AS consideration_id, C.service_genre AS consideration_genre, C.service_name AS consideration_name, C.service_description AS consideration_description, C.service_author AS consideration_author
+FROM service S
+LEFT JOIN service C
+ON S.service_consideration=C.service_id
+WHERE S.service_type='WC';
+
+CREATE VIEW view_service_withoutconsideration AS
+SELECT S.service_id, S.service_genre, S.service_name, S.service_description, S.service_author, S.service_publication_date
+FROM service S
+    WHERE S.service_type='WC';
 
 CREATE VIEW view_service_doers AS
     SELECT S.service_id, R1.number_doers, S.service_max_number
@@ -242,10 +264,10 @@ CREATE VIEW view_service_doers AS
     ORDER BY SD.service_id) AS R1, service S
     WHERE R1.service_id = S.service_id;
 
-CREATE VIEW view_community AS 
-    SELECT MD.person, C.community_id, C.community_name, C.community_description, C.community_creation_date, 
+CREATE VIEW view_community AS
+    SELECT MD.person, C.community_id, C.community_name, C.community_description, C.community_creation_date,
         CASE WHEN MD.validity THEN 'membre' ELSE 'exclu' END AS Statut
-    FROM community C, membership_declaration MD 
+    FROM community C, membership_declaration MD
     WHERE MD.community=C.community_id
     GROUP BY MD.person, C.community_id, MD.community;
 
@@ -253,11 +275,10 @@ CREATE VIEW view_message AS
     SELECT original_message_id, original_message_content, referenced, message_content
     FROM (SELECT ME.message_id AS original_message_id, ME.message_content AS original_message_content, MR.referenced
         FROM messages ME
-        LEFT JOIN messages_reference MR 
+        LEFT JOIN messages_reference MR
         ON ME.message_id = MR.referrer) AS R1
     JOIN messages ME
     ON R1.referenced = ME.message_id;
-
 
 CREATE view view_nearby AS
     SELECT R4.user_id, R4.person_fname, R4.person_lname, R4.community_id, R4.community_name, R4.community_description FROM(
@@ -269,7 +290,7 @@ CREATE view view_nearby AS
 			FULL JOIN (SELECT U.user_id, CO.community_id, CO.community_name, CO.community_description, U.user_longitude, U.user_latitude
 				FROM users U, community CO
 				WHERE U.user_id = CO.community_id) AS R2
-			ON R1.user_id = R2.user_id) AS R3A,  
+			ON R1.user_id = R2.user_id) AS R3A,
 			(SELECT *
 			FROM (SELECT U.user_id
 				FROM users U, person P
@@ -280,8 +301,6 @@ CREATE view view_nearby AS
 			ON R1.user_id = R2.user_id) AS R3B) AS R4
     WHERE R4.long_diff >= -0.53902 AND R4.long_diff <= 0.53902 AND R4.lat_diff >= -0.53902 AND R4.lat_diff <= 0.53902;
 
-    
-    
 
 /* JEU DE TEST*/
 
@@ -297,7 +316,7 @@ VALUES ('10.684', '-58.487', '16', 'P'),
  ('154.5687', '12.78', '16', 'C'),
  ('-38.4684', '-89.955', '16', 'C'),
 ('49.6078', '2.8178', '16', 'C'),/* Compi city */
-('50.55','13.20','16','P'); 
+('50.55','13.20','16','P');
 
 INSERT INTO community(community_name, community_description, community_creation_date, community_id)
 VALUES ('la Force', 'le bleu vous va mieux', '1999-01-06',7),
@@ -306,8 +325,8 @@ VALUES ('la Force', 'le bleu vous va mieux', '1999-01-06',7),
 ('Incroyables Digérables', 'Mouvement de réappropriation urbaine. Faisons tourner rond les ronds-points', '2019-03-14',10),
 ('NéoPicardie','Front de libération picard. Programme de rénovation agricole et d''integration culturelle.', '2016-11-12',11);
 
-/* On a besoin du package pgcrypto pour utiliser la fonction gen_salt et crypt 
-Le meilleur aurait été d'insérer de telle sorte le mdp : 
+/* On a besoin du package pgcrypto pour utiliser la fonction gen_salt et crypt
+Le meilleur aurait été d'insérer de telle sorte le mdp :
 crypt('MDP_TEXTE', gen_salt('bf', 8))
 Or, le package pgcrypto n'est pas présent sur le serveur pgsql fourni.
 */
@@ -326,7 +345,7 @@ VALUES ('MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC18mnzQF6O2HLGgJnVoG1HNH+ZHI9Yb1w
 ('MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAgS7Ih2BpDWM0OFR8B1o4N7cGKguH/lUdKmtMQDmzY6aD4yKg/yOkMQXJZZuBEmrId7BrKKTRKcYnZf2Tl3VeIKh870xpI0XRiApCDiKVYww9LQDFePSD/LMt4l7+E7/JaheHlYMjI7SeZRfsGnkcFYabSVha4WU6814zxUE0kwIDAQAB', '3');
 
 INSERT INTO users_link(description, sender, receiver, sender_type, receiver_type)
-VALUES ('amitie', 1, 2, 'P', 'P'),
+VALUES ('amitie', 1, 2, 'P','P'),
 ('ennemi', 2, 1, 'P', 'P'),
 ('commercial',7,8,'C','C'),
 ('partenaire', 9, 10, 'C', 'C'),
@@ -350,18 +369,17 @@ VALUES (1,3,11),
 (2,3,11);
 
 INSERT INTO service (service_name, service_genre, service_description, service_max_number, service_publication_date, service_sum, service_consideration_description, service_consideration, service_type, service_author)
-VALUES 
+VALUES
 ('Service 1', 'O', 'Service 1', '2', '2018-01-01', NULL, NULL, NULL, 'WOC', '1'),
 ('Service 2', 'D', 'Service 2', '2', '2018-01-01', '10.54', NULL, NULL, 'C', '2'),
 ('Service 3', 'D', 'Service 3', '2', '2018-01-01', NULL, 'Contrepartie 1 ou contrepartie 2', NULL, 'WC', '3'),
 ('Service 4', 'D', 'Service 4', '2', '2018-01-01', NULL, NULL, '1', 'WC', '1'),
 ('Cours equitation', 'O', 'pour dompter le cheval', '2', '2019-01-01', NULL, NULL, '1', 'WC', '1');
 
-
 INSERT INTO service_doers (service_id, user_id)
 VALUES ('4', '1');
 
-INSERT INTO skill(skill_name) 
+INSERT INTO skill(skill_name)
 VALUES ('equitation'),
 ('escrime'),
 ('programmation'),
@@ -404,7 +422,12 @@ WHERE conversation_id = '2';
 INSERT INTO messages_reference (referrer, referenced)
 VALUES ('3', '2'), ('2', '1');
 
-/* DONNEES INVALIDES */
+/* EXEMPLE DE DONNEES INVALIDES */
 /*INSERT INTO service (service_name, service_genre, service_description, service_max_number, service_publication_date, service_sum, service_consideration_description, service_consideration, service_type, service_author)
-VALUES 
-('Tondre la pelouse', 'O', 'elle est longue', '2', '2018-01-01', NULL, NULL, NULL, 'C', '1');*/
+VALUES
+('Tondre la pelouse', 'O', 'elle est longue', '2', '2018-01-01', NULL, NULL, NULL, 'C', '1');
+INSERT INTO membership_opposition (opponent, person, community)
+VALUES (5,4,11)
+INSERT INTO person(person_username, person_fname, person_lname, person_birth_date, person_hashed_pwd, person_id)
+VALUES ('croziflette', 'Stephane', 'Croz', '2022-03-18', 'hsbcislove33', 1),
+*/
