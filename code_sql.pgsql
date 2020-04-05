@@ -1,6 +1,6 @@
+CREATE SCHEMA IF NOT EXISTS resilience;
 SET search_path TO resilience;
 /* INITIALISATION */
-CREATE SCHEMA IF NOT EXISTS resilience;
 DROP TYPE IF EXISTS type_user CASCADE;
 DROP TYPE IF EXISTS type_service CASCADE;
 DROP TYPE IF EXISTS genre_service CASCADE;
