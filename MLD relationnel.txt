@@ -41,11 +41,12 @@ Competence (
 )
 
 DeclarationAppartenance (
+    date_entree : date,
+    validité : bool,
     #declarant => Utilisateur.user_id,
     #communaute => Utilisateur.user_id,
     declarant_type => Utilisateur.type,
     communaute_type => Utilisateur.type,
-    validité : bool,
     PRIMARY KEY(declarant, communaute)
 )
 
