@@ -7,7 +7,7 @@
   - [Modèle UML (MCD)](#mod%c3%a8le-uml-mcd)
   - [MLD relationnel](#mld-relationnel)
   - [BDD : tables et vues, données de test, questions attendues (vues)](#bdd--tables-et-vues-donn%c3%a9es-de-test-questions-attendues-vues)
-  - [Application Python](#application-python)
+  - [~~Application Python~~](#sapplication-pythons)
 - [Remarques sur la v1 du projet](#remarques-sur-la-v1-du-projet)
   
 # Membres du groupe
@@ -51,13 +51,16 @@ On proposera au moins les trois vues suivantes :
 ## MLD relationnel
 1. Rendu au format plain text.
 2. [MLD relationnel](MLD%20relationnel.txt)
+3. Un algorithme a été utilisé pour la vue message, étant donné le CDC. Il faudrait uitliser une fonction. Nous ne l'avons pas fait. 
 ## BDD : tables et vues, données de test, questions attendues (vues)
 1. Instructions de construction de la BDD en SQL
 2. Jeu de test
-## Application Python
+3. Voir [code_sql.pgsql](code_sql.pgsql)
+## ~~Application Python~~
 1. Rendu du code source d'une application implémentant le projet.
 2. Plus de détails à venir.
 
 # Remarques sur la v1 du projet 
 1. Le délai étant de conception et implémentation étant relativement court, on s'efforcera de mettre place les fonctionnalités essentielles. C'est-à-dire nécessaires au fonctionnement de l'application, qui doit répondre aux besoins établis. 
 2.  Cependant, certains concepts et domaines de priorité secondaires seront abordés si seulement le temps est suffisant. Ces fonctionnalités correspondent notamment à la gestion du cycle de vie des données, au respect du RGPD, les conditions générales d'utilisation (CGU), etc. La facilité d'implémentation ultérieure de ces fonctionnalités justifient le délai dans leur traitement.
+3.  On a implémenté un trigger pour check l'intégrité de certaines données dans service. 
