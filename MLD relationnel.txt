@@ -106,6 +106,7 @@ Service {
     #service_id : integer,
     auteur => utilisateur.user_id,
     nom : string,
+    type_service : {'O', 'D'},
     description : string,
     date_publication : date,
     montant : float,
